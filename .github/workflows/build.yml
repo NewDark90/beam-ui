@@ -166,7 +166,7 @@ jobs:
       run: cpack
     
     - name: AppImage [ubuntu-16.04]
-      if: matrix.os == 'ubuntu-16.04'
+      if: matrix.os == 'ubuntu-16.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
       run: |
         echo "Creating AppImage deploy tree"
         mkdir -p ./deploy/usr/bin
