@@ -181,7 +181,7 @@ jobs:
         chmod a+x ui/3rdparty/linuxdeployqt
         export VERSION=${{env.BEAM_VERSION}}
         # Below -exclude-libs is a work around for https://github.com/probonopd/linuxdeployqt/issues/35
-        ./ui/3rdparty/linuxdeployqt ./deploy/usr/share/applications/BeamWallet${{env.BEAM_DISPLAY_SUFFIX}}.desktop -appimage -no-translations -always-overwrite -unsupported-bundle-everything -unsupported-allow-new-glibc -qmldir="./ui/view" -no-copy-copyright-files -exclude-libs="libnss3.so,libnssutil3.so"
+        ./ui/3rdparty/linuxdeployqt ./deploy/usr/share/applications/BeamWallet${{env.BEAM_DISPLAY_SUFFIX}}.desktop -appimage -no-translations -always-overwrite -qmldir="./ui/view" -no-copy-copyright-files -exclude-libs="libnss3.so,libnssutil3.so"
 
     - name: CPack [windows]
       shell: bash
