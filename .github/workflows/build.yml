@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         #  os: [macos-10.15, ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, windows-2019]
-        os: [macos-10.15, ubuntu-16.04, windows-2019]
+        os: [macos-10.15, ubuntu-18.04, windows-2019]
         # os: [ubuntu-16.04, windows-2019]
     steps:
     - uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
 
     - name: OS name [ununtu all]
       shell: bash
-      if: matrix.os == 'ubuntu-16.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
       run: echo "PACKAGE_NAME=Linux" >> $GITHUB_ENV
 
     - name: Create Build Environment [macos-10.15]
@@ -69,7 +69,7 @@ jobs:
 
     - name: Create Build Environment [ubuntu 16.04]
       shell: bash
-      if: matrix.os == 'ubuntu-16.04'
+      if: matrix.os == 'ubuntu-18.04'
       run: |
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test
         sudo apt-get update
@@ -165,7 +165,7 @@ jobs:
       if: matrix.os != 'windows-2019'
       run: cpack
     
-    - name: AppImage [ubuntu-16.04]
+    - name: AppImage [ubuntu-18.04]
       if: matrix.os == 'ubuntu-16.04'
       run: |
         echo "Creating AppImage deploy tree"
@@ -213,7 +213,7 @@ jobs:
 
     - name: Collect [ubuntu]
       shell: bash
-      if: matrix.os == 'ubuntu-16.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
       run: |
         #cp BeamWallet${{env.BEAM_DISPLAY_SUFFIX}}-${{env.BEAM_VERSION}}-Linux.deb Beam-Wallet${{env.BEAM_DISPLAY_SUFFIX2}}-${{env.BEAM_VERSION}}.deb
         #sha256sum Beam-Wallet${{env.BEAM_DISPLAY_SUFFIX2}}-${{env.BEAM_VERSION}}.deb > checksum.txt
@@ -242,7 +242,7 @@ jobs:
         if-no-files-found: error
 
     - uses: actions/upload-artifact@v2
-      if: matrix.os == 'ubuntu-16.04'
+      if: matrix.os == 'ubuntu-18.04'
       with:
         name: ${{env.PACKAGE_NAME}}-Beam-Wallet${{env.BEAM_DISPLAY_SUFFIX2}}-${{env.BEAM_VERSION}}
         path: Beam-Wallet-${{env.BEAM_DISPLAY_SUFFIX}}-${{env.BEAM_VERSION}}.tar
