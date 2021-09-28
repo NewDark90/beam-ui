@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         #  os: [macos-10.15, ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, windows-2019]
-        os: [macos-10.15, ubuntu-18.04, windows-2019]
+        os: [macos-10.15, ubuntu-16.04, windows-2019]
         # os: [ubuntu-16.04, windows-2019]
     steps:
     - uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
 
     - name: OS name [ununtu all]
       shell: bash
-      if: matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-16.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
       run: echo "PACKAGE_NAME=Linux" >> $GITHUB_ENV
 
     - name: Create Build Environment [macos-10.15]
@@ -69,7 +69,7 @@ jobs:
 
     - name: Create Build Environment [ubuntu 16.04]
       shell: bash
-      if: matrix.os == 'ubuntu-18.04'
+      if: matrix.os == 'ubuntu-16.04'
       run: |
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test
         sudo apt-get update
