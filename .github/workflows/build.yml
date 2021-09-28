@@ -25,8 +25,11 @@ jobs:
     - name: Submodule update
       shell: bash
       run: |
+        ls -la
         git submodule update --init --recursive --remote --jobs 4
+        ls -la
         cd beam
+        ls -la
         git apply 3rdparty/protobuf-patch.diff
 
 ###############################################################################
