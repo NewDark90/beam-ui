@@ -25,6 +25,7 @@ jobs:
     - name: Submodule update
       shell: bash
       run: |
+        ls -la
         git config --global url."https://github.com/".insteadOf "git@github.com:"
         git submodule sync --recursive
         git -c "http.extraheader=Authorization: basic ${GITHUB_ACCESS_TOKEN}" -c protocol.version=2 submodule update --init --recursive --remote --jobs 4
