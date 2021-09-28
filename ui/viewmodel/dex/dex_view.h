@@ -25,7 +25,7 @@ namespace beamui::dex {
 
     public:
         DexView();
-        ~DexView();
+        ~DexView() = default;
 
         QAbstractItemModel* getOrders();
 

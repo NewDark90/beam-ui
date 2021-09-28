@@ -23,6 +23,7 @@
 #include "quazip/quazipfile.h"
 #include "quazip/JlCompress.h"
 #include "viewmodel/qml_globals.h"
+#include "public.h"
 #include "wallet/client/apps_api/apps_utils.h"
 
 namespace beamui::applications

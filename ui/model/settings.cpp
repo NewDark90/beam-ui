@@ -18,9 +18,9 @@
 #include <QtQuick>
 #include "model/app_model.h"
 #include "wallet/core/default_peers.h"
+#include "wallet/client/apps_api/apps_api.h"
 #include "version.h"
 #include "wallet/client/extensions/news_channels/interface.h"
-#include "viewmodel/applications/public.h"
 #include "quazip/quazip.h"
 #include "quazip/quazipfile.h"
 #include "wallet/client/apps_api/apps_utils.h"

@@ -17,7 +17,8 @@
 #include <QApplication>
 #include <QClipboard>
 #include "qml_globals.h"
-#include "wallet/client/apps_api/apps_utils.h"
+#include "applications/public.h"
+#include "wallet/client/apps_api/apps_api.h"
 
 namespace
 {

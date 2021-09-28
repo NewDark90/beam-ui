@@ -274,8 +274,8 @@ const QString& TxObject::getComment() const
         }
         else if (isDexTx())
         {
-            // TODO:DEX just temporary
-            comment = "DEX transaction";
+            //% "Assets Swap transaction"
+            comment = qtTrId("tx-dex-default-comment");
         }
 
         _comment = comment;

@@ -3357,5 +3357,9 @@ to own address</oldsource>
         <source>Update Wallet to launch %1 application</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="tx-dex-default-comment">
+        <source>Assets Swap transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

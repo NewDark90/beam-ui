@@ -20,22 +20,12 @@ namespace beamui::dex
     DexView::DexView()
         : _walletModel(*AppModel::getInstance().getWalletModel())
     {
-        beam::wallet::TxID id;
-        LOG_INFO() << id;
-
-         connect(&_walletModel, &WalletModel::dexOrdersChanged, this, &DexView::onDexOrdersChanged);
+        connect(&_walletModel, &WalletModel::dexOrdersChanged, this, &DexView::onDexOrdersChanged);
          connect(&_walletModel, &WalletModel::generatedNewAddress, this, &DexView::onNewAddress);
-
-         _walletModel.getAsync()->getDexOrders();
-
-         // TODO:DEX move address to the board?
-         _walletModel.getAsync()->generateNewAddress();
+        _walletModel.getAsync()->getDexOrders();
+        _walletModel.getAsync()->generateNewAddress();
 
          emit ordersChanged();
-    }
-
-    DexView::~DexView()
-    {
     }
 
     void DexView::sellBEAMX()
@@ -89,7 +79,6 @@ namespace beamui::dex
     void DexView::onNewAddress(const beam::wallet::WalletAddress& addr)
     {
        _receiverAddr = addr;
-       _orders.selfID = addr.m_Identity;
     }
 
     QAbstractItemModel* DexView::getOrders()
@@ -128,10 +117,12 @@ namespace beamui::dex
     void DexView::acceptOrder(const QString& orderId)
     {
         beam::wallet::DexOrderID dexOrderId;
-        if (!dexOrderId.FromHex(orderId.toStdString()))
+        if (dexOrderId.FromHex(orderId.toStdString()))
         {
-            throw std::runtime_error("DexView::acceptOrder bad order id");
+            _walletModel.getAsync()->acceptDexOrder(dexOrderId);
+            return;
         }
-        _walletModel.getAsync()->acceptDexOrder(dexOrderId);
+        LOG_WARNING() << "Invalid orderId in DexView::acceptOrder. This means error in somewhere the UI.";
+        assert(false);
     }
 }
