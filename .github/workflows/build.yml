@@ -15,8 +15,8 @@ jobs:
     strategy:
       matrix:
         #  os: [macos-10.15, ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, windows-2019]
-        # os: [macos-10.15, ubuntu-18.04, windows-2019]
-        os: [ubuntu-18.04, windows-2019]
+        os: [macos-10.15, ubuntu-16.04, windows-2019]
+        # os: [ubuntu-16.04, windows-2019]
     steps:
     - uses: actions/checkout@v2
       with:
@@ -25,7 +25,9 @@ jobs:
     - name: Submodule update
       shell: bash
       run: |
-        git submodule update --init --recursive --remote --jobs 4
+        git config --global url."https://github.com/".insteadOf "git@github.com:"
+        git submodule sync --recursive
+        git -c "http.extraheader=Authorization: basic ${GITHUB_ACCESS_TOKEN}" -c protocol.version=2 submodule update --init --recursive --remote --jobs 4
         cd beam
         git apply 3rdparty/protobuf-patch.diff
 
@@ -164,9 +166,17 @@ jobs:
     - name: CPack [macos-10.15 && ununtu all]
       if: matrix.os != 'windows-2019'
       run: cpack
-    
-    - name: AppImage [ubuntu-16.04]
-      if: matrix.os == 'ubuntu-16.04' || matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04'
+
+    - name: LinuxQtDeployTool [ubuntu-16.04]
+      if: matrix.os == 'ubuntu-16.04'
+      run: echo "LINUX_QT_DEPLOY_TOOL=linuxdeployqt-7" >> $GITHUB_ENV
+
+    - name: LinuxQtDeployTool [ubuntu-18.04]
+      if: matrix.os == 'ubuntu-18.04'
+      run: echo "LINUX_QT_DEPLOY_TOOL=linuxdeployqt" >> $GITHUB_ENV
+
+    - name: AppImage [ubuntu-16.04 || ubuntu-18.04]
+      if: matrix.os == 'ubuntu-16.04' || matrix.os == 'ubuntu-18.04'
       run: |
         echo "Creating AppImage deploy tree"
         mkdir -p ./deploy/usr/bin
@@ -178,10 +188,10 @@ jobs:
         cp ui/beam.desktop deploy/usr/share/applications/BeamWallet${{env.BEAM_DISPLAY_SUFFIX}}.desktop
         cp ui/beam-wallet.cfg deploy/usr/bin/
         echo "Creating AppImage"
-        chmod a+x ui/3rdparty/linuxdeployqt
+        chmod a+x ui/3rdparty/${{env.LINUX_QT_DEPLOY_TOOL}}
         export VERSION=${{env.BEAM_VERSION}}
         # Below -exclude-libs is a work around for https://github.com/probonopd/linuxdeployqt/issues/35
-        ./ui/3rdparty/linuxdeployqt ./deploy/usr/share/applications/BeamWallet${{env.BEAM_DISPLAY_SUFFIX}}.desktop -appimage -no-translations -always-overwrite -qmldir="./ui/view" -no-copy-copyright-files -exclude-libs="libnss3.so,libnssutil3.so"
+        ./ui/3rdparty/${{env.LINUX_QT_DEPLOY_TOOL}} ./deploy/usr/share/applications/BeamWallet${{env.BEAM_DISPLAY_SUFFIX}}.desktop -appimage -no-translations -always-overwrite -qmldir="./ui/view" -no-copy-copyright-files -exclude-libs="libnss3.so,libnssutil3.so"
 
     - name: CPack [windows]
       shell: bash
@@ -242,7 +252,7 @@ jobs:
         if-no-files-found: error
 
     - uses: actions/upload-artifact@v2
-      if: matrix.os == 'ubuntu-18.04'
+      if: matrix.os == 'ubuntu-16.04'
       with:
         name: ${{env.PACKAGE_NAME}}-Beam-Wallet${{env.BEAM_DISPLAY_SUFFIX2}}-${{env.BEAM_VERSION}}
         path: Beam-Wallet-${{env.BEAM_DISPLAY_SUFFIX}}-${{env.BEAM_VERSION}}.tar
