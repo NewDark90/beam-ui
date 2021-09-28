@@ -25,9 +25,9 @@ jobs:
     - name: Submodule update
       shell: bash
       run: |
-        git submodule update --init --recursive --remote --jobs 4
+        sudo git submodule update --init --recursive --remote --jobs 4
         cd beam
-        git apply 3rdparty/protobuf-patch.diff
+        sudo git apply 3rdparty/protobuf-patch.diff
 
 ###############################################################################
 # Create Build Environment
