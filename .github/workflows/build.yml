@@ -15,8 +15,9 @@ jobs:
     strategy:
       matrix:
         #  os: [macos-10.15, ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, windows-2019]
-        os: [macos-10.15, ubuntu-16.04, windows-2019]
+        # os: [macos-10.15, ubuntu-16.04, windows-2019]
         # os: [ubuntu-16.04, windows-2019]
+        os: [ubuntu-16.04]
     steps:
     - uses: actions/checkout@v2
       with:
@@ -26,6 +27,7 @@ jobs:
       shell: bash
       run: |
         ls -la
+        git clean -fdx
         git submodule update --init --recursive --remote --jobs 4
         ls -la
         cd beam
