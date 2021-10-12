@@ -331,18 +331,6 @@
         <source>Change password</source>
         <translation>Поменять пароль</translation>
     </message>
-    <message id="loading-loading">
-        <source>Loading wallet...</source>
-        <translation>Загрузка кошелька...</translation>
-    </message>
-    <message id="loading-restoring">
-        <source>Restoring wallet...</source>
-        <translation>Восстановление кошелька...</translation>
-    </message>
-    <message id="loading-creating">
-        <source>Creating wallet...</source>
-        <translation>Создание кошелька...</translation>
-    </message>
     <message id="start-open-pwd-invitation">
         <source>Enter your password to access the wallet</source>
         <translation>Чтобы получить доступ к кошельку, введите пароль</translation>
@@ -622,12 +610,9 @@
         <translation>Невозможно запустить приложение. Проверьте путь к данным кошелька.</translation>
     </message>
     <message id="loading-view-download-blocks">
-        <source>Syncing with blockchain</source>
-        <translation>Синхронизация с блокчейном</translation>
-    </message>
-    <message id="loading-view-scaning-utxo">
-        <source>Loading wallet data %d/%d</source>
-        <translation>Загрузка данных кошелька %d/%d</translation>
+        <source>Syncing with the blockchain: </source>
+        <oldsource>Syncing with blockchain: </oldsource>
+        <translation type="unfinished">Синхронизация с блокчейном</translation>
     </message>
     <message id="loading-view-protocol-error">
         <source>Incompatible peer</source>
@@ -925,17 +910,26 @@
         <source>Fee is too small</source>
         <translation>Размер комиссии слишком мал</translation>
     </message>
-    <message id="loading-view-estimate-minutes">
-        <source>min</source>
-        <translation>мин</translation>
+    <message id="loading-view-estimate-minutes" numerus="yes">
+        <source>%n minute(s)</source>
+        <translation>
+            <numerusform>%n минуна</numerusform>
+            <numerusform>%n минуты</numerusform>
+            <numerusform>%n минут</numerusform>
+        </translation>
     </message>
-    <message id="loading-view-estimate-seconds">
-        <source>sec</source>
-        <translation>сек.</translation>
+    <message id="loading-view-estimate-seconds" numerus="yes">
+        <source>%n second(s)</source>
+        <translation type="unfinished">
+            <numerusform>%n секунда</numerusform>
+            <numerusform>%n секунды</numerusform>
+            <numerusform>%n секунд</numerusform>
+        </translation>
     </message>
     <message id="loading-view-estimate-time">
-        <source>Estimated time: %s</source>
-        <translation>Оставшееся время: %s</translation>
+        <source>%s to completion</source>
+        <oldsource>Estimated time: %s</oldsource>
+        <translation type="unfinished">Оставшееся время: %s</translation>
     </message>
     <message id="general-fee-rate">
         <source>%1 Transaction fee rate</source>
@@ -1020,16 +1014,17 @@ please review your settings and try again</source>
         <translation>Истекает</translation>
     </message>
     <message id="loading-view-estimate-calculating">
-        <source>calculating...</source>
-        <translation>вычисляется...</translation>
+        <source>calculating estimated time</source>
+        <oldsource>calculating...</oldsource>
+        <translation type="unfinished">вычисляется...</translation>
     </message>
-    <message id="loading-view-rebuild-utxos">
-        <source>Rebuilding wallet data</source>
-        <translation>Перестройка данных кошелька</translation>
-    </message>
-    <message id="loading-view-estimate-hours">
-        <source>h</source>
-        <translation>ч</translation>
+    <message id="loading-view-estimate-hours" numerus="yes">
+        <source>%n hour(s)</source>
+        <translation>
+            <numerusform>%n час</numerusform>
+            <numerusform>%n часа</numerusform>
+            <numerusform>%n часов</numerusform>
+        </translation>
     </message>
     <message id="loading-view-net-problems">
         <source>It may take longer than usual. Please, check your network.</source>
@@ -1774,9 +1769,9 @@ Your version is: %2. Please, check for updates.</source>
         <translation>В сети</translation>
     </message>
     <message id="tx-max-privacy">
-        <source>Max Anonymity Set</source>
-        <oldsource>Max Privacy</oldsource>
-        <translation>Максимальная анонимность</translation>
+        <source>Maximum anonymity</source>
+        <oldsource>Max Anonymity Set</oldsource>
+        <translation type="unfinished">Максимальная анонимность</translation>
     </message>
     <message id="error-peer-exists">
         <source>Peer already exists</source>
@@ -2033,8 +2028,9 @@ Your version is: %2. Please, check for updates.</source>
         <translation>Обычная</translation>
     </message>
     <message id="tx-address-max-privacy">
-        <source>Max privacy</source>
-        <translation>Макс. приватность</translation>
+        <source>Maximum anonymity</source>
+        <oldsource>Max privacy</oldsource>
+        <translation type="unfinished">Макс. приватность</translation>
     </message>
     <message id="wallet-txs-status-in-progress-public-offline">
         <source>in progress
@@ -2141,28 +2137,9 @@ max privacy</oldsource>
         <translation>Полученные монеты могут быть потрачены немедленно.</translation>
     </message>
     <message id="settings-privacy-mp-time-limit">
-        <source>Max privacy longest transaction time</source>
-        <translation>Наибольшее время транзакции с Макс. приватностью</translation>
-    </message>
-    <message id="settings-privacy-mp-time-limit-72">
-        <source>72h</source>
-        <translation>72 часа</translation>
-    </message>
-    <message id="settings-privacy-mp-time-limit-60">
-        <source>60h</source>
-        <translation>60 часов</translation>
-    </message>
-    <message id="settings-privacy-mp-time-limit-48">
-        <source>48h</source>
-        <translation>48 часов</translation>
-    </message>
-    <message id="settings-privacy-mp-time-limit-36">
-        <source>36h</source>
-        <translation>36 часов</translation>
-    </message>
-    <message id="settings-privacy-mp-time-limit-24">
-        <source>24h</source>
-        <translation>24 часа</translation>
+        <source>Longest transaction time for maximum anonymity</source>
+        <oldsource>Max privacy longest transaction time</oldsource>
+        <translation type="unfinished">Наибольшее время транзакции с Макс. приватностью</translation>
     </message>
     <message id="remote-node-lelantus-warning">
         <source>To support maximum anonymity set and offline transactions please connect to integrated node or to own node configured with your owner key.</source>
@@ -2643,10 +2620,13 @@ Update your settings and try again.</source>
         <source>(optional)</source>
         <translation>(опционально)</translation>
     </message>
-    <message id="wallet-receive-addr-message-mp">
-        <source> Transaction can last at most %1 hours.</source>
-        <oldsource>Max Privacy transaction can last at most %1 hours.</oldsource>
-        <translation> Транзакция может длиться не более %1 часов.</translation>
+    <message id="wallet-receive-addr-message-mp" numerus="yes">
+        <source>Transaction can last at most %n hour(s).</source>
+        <translation>
+            <numerusform>Транзакция может длиться не более %1 часа.</numerusform>
+            <numerusform>Транзакция может длиться не более %1 часов.</numerusform>
+            <numerusform>Транзакция может длиться не более %1 часов.</numerusform>
+        </translation>
     </message>
     <message id="wallet-receive-addr-message-mp-no-limit">
         <source>Transaction can last indefinitely.</source>
@@ -3214,17 +3194,6 @@ cannot be canceled.</source>
         <source>Select application to install</source>
         <translation>Выберите приложение для установки</translation>
     </message>
-    <message id="appliactions-install-ok">
-        <source>&apos;%1&apos; is successfully installed</source>
-        <oldsource>%1 is successfully installed</oldsource>
-        <translation>&apos;%1&apos; успешно установлено</translation>
-    </message>
-    <message id="appliactions-install-fail">
-        <source>Failed to install DApp:
-%1</source>
-        <oldsource>Unable to install DApp: %1</oldsource>
-        <translation type="unfinished">Не удалось установить DApp: %1</translation>
-    </message>
     <message id="faucet-promo">
         <source>See the wallet in action. Get a small amount of Beams from the Faucet DApp.</source>
         <translation>Посмотрите кошелек в действии. Получите небольшое количество Beam от Faucet DApp.</translation>
@@ -3342,11 +3311,13 @@ to own address</oldsource>
         </translation>
     </message>
     <message id="apps-uninstall-success">
-        <source>%1 DApp is successfully uninstalled.</source>
+        <source>&apos;%1&apos; DApp is successfully uninstalled.</source>
+        <oldsource>%1 DApp is successfully uninstalled.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="apps-uninstall-fail">
-        <source>Failed to uninstall %1 DApp.</source>
+        <source>Failed to uninstall &apos;%1&apos; DApp.</source>
+        <oldsource>Failed to uninstall %1 DApp.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="apps-inprogress-tip">
@@ -3360,6 +3331,79 @@ to own address</oldsource>
     <message id="apps-update-message">
         <source>Update Wallet to launch %1 application</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message id="wallet-receive-regular-address-message">
+        <source>To ensure a better privacy, new address is generated every time.
+In case you’d like to re-use an earlier created regular address please use the Address Book.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="apps-install-success">
+        <source>&apos;%1&apos; is successfully installed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="apps-install-fail">
+        <source>Failed to install DApp:
+%1</source>
+        <translation type="unfinished">Не удалось установить DApp: %1</translation>
+    </message>
+    <message id="app-install-title">
+        <source>Install DApp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="address-details">
+        <source>Address details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="swap-token-details">
+        <source>Token details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="settings-privacy-mp-time-no-limit-commented">
+        <source>No limit
+(transaction can last indefinitely)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="settings-privacy-mp-time-limit-val" numerus="yes">
+        <source>%n hour(s)</source>
+        <translation>
+            <numerusform>%n час</numerusform>
+            <numerusform>%n часа</numerusform>
+            <numerusform>%n часов</numerusform>
+        </translation>
+    </message>
+    <message id="settings-privacy-mp-time-limit-val72-comment">
+        <source> (recommended)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="wallet-receive-addr-message-min-fee">
+        <source>Min transaction fee is 0.01 BEAM.</source>
+        <oldsource>Min transaction fee is 0.01 BEAM</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="status-online-stale-rates">
+        <source>(exchange rate to %1 was not updated since %2)</source>
+        <oldsource> (exchange rate to %1 was not updated since %2)</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="loading-view-restoring">
+        <source>Restoring wallet from the blockchain: </source>
+        <translation type="unfinished">Перестройка данных кошелька</translation>
+    </message>
+    <message id="loading-view-creating">
+        <source>Downloading blockchain data: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="loading-view-less-than-minute">
+        <source>less than a minute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="loading-view-rebuild-utxos">
+        <source>Rebuilding wallet data: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="status-change-settings">
+        <source>Change settings</source>
+        <translation type="unfinished">Изменить настройки</translation>
     </message>
 </context>
 </TS>

@@ -75,7 +75,7 @@ Item {
             width: 10
             height: 10
             sourceSize:     Qt.size(10, 10)
-            source:         "qrc:/assets/icon-trusted-node-status.svg"
+            source:         model.isExchangeRatesUpdated ? "qrc:/assets/icon-trusted-node-status.svg" : "qrc:/assets/icon-trusted-node-status-stale.svg"
             visible:        model.isConnectionTrusted && !model.isCoinClientFailed
         }
 
@@ -157,11 +157,12 @@ Item {
     }
 
     LinkButton {
-        text: "Change settings"
+        //% "Change settings"
+        text: qsTrId("status-change-settings")
         visible: model.isCoinClientFailed || model.isFailedStatus || (model.isOnline && !model.isConnectionTrusted)
         anchors.top: parent.top
         anchors.left: status_text.right
-        anchors.leftMargin: 5
+        anchors.leftMargin: 20
         anchors.topMargin: -1
         fontSize: 12
         onClicked: {
@@ -191,12 +192,18 @@ Item {
             name: "online"
             PropertyChanges {
                 target: status_text;
-                text: statusOnline + (model.isConnectionTrusted ? "" : ": " + statusOnlineRemote) + model.branchName
+                text: statusOnline + (model.isConnectionTrusted ? "" : ": " + statusOnlineRemote) + model.branchName + 
+                    (
+                        model.isExchangeRatesUpdated? "" : (!model.isConnectionTrusted ? "\n" : " ") + model.exchangeStatus
+                    )
+            }
+            PropertyChanges {
+                target: online_indicator;
+                color: model.isExchangeRatesUpdated ? Style.online : Style.validator_warning
             }
             StateChangeScript {
                 name: "onlineScript"
                 script: {
-                    online_indicator.color = Style.online;
                     rootControl.setIndicator(online_indicator);
                 }
             }
@@ -224,12 +231,12 @@ Item {
             StateChangeScript {
                 name: "errorScript"
                 script: {
-                    online_indicator.color = "#ff746b";
+                    online_indicator.color = Style.accent_fail;
                     rootControl.setIndicator(online_indicator);
                 }
             }
         },
-         State {
+        State {
             name: "error_3rd"
             PropertyChanges {
                 target: status_text;
@@ -238,7 +245,7 @@ Item {
             StateChangeScript {
                 name: "errorScript"
                 script: {
-                    online_indicator.color = "#ff746b";
+                    online_indicator.color = Style.accent_fail;
                     rootControl.setIndicator(online_indicator);
                 }
             }
