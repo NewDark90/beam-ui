@@ -7,6 +7,14 @@ env:
   BUILD_CONFIG: RelWithDebInfo
 
 jobs:
+
+  cleaner:
+    runs-on: self-hosted
+    steps:
+      - name: Runner workspace path
+        run: |
+          echo "Cleaning up previous run"
+          rm -rf "${{ github.workspace }}"
 ###############################################################################
 # Build Desktop
 ###############################################################################
@@ -28,7 +36,7 @@ jobs:
       run: |
         git submodule update --init --recursive --remote --jobs 4
         cd beam
-        # git apply 3rdparty/protobuf-patch.diff
+        git apply 3rdparty/protobuf-patch.diff
 
 ###############################################################################
 # Create Build Environment
