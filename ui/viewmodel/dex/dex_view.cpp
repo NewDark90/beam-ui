@@ -20,12 +20,36 @@ namespace beamui::dex
     DexView::DexView()
         : _walletModel(AppModel::getInstance().getWalletModel())
     {
-        connect(&_walletModel, &WalletModel::dexOrdersChanged, this, &DexView::onDexOrdersChanged);
-         connect(&_walletModel, &WalletModel::generatedNewAddress, this, &DexView::onNewAddress);
-        _walletModel.getAsync()->getDexOrders();
-        _walletModel.getAsync()->generateNewAddress();
+        connect(_walletModel.get(), &WalletModel::dexOrdersChanged, this, &DexView::onDexOrdersChanged);
+        connect(_walletModel.get(), &WalletModel::generatedNewAddress, this, &DexView::onNewAddress);
+        _walletModel->getAsync()->getDexOrders();
+        _walletModel->getAsync()->generateNewAddress();
 
          emit ordersChanged();
+    }
+
+    void DexView::sellNONE()
+    {
+        using namespace beam;
+        using namespace beam::wallet;
+
+        _walletModel->getAsync()->saveAddress(_receiverAddr);
+
+        auto expires = beam::getTimestamp();
+        expires += 60 * 60 * 24; // 24 hours for tests
+
+        DexOrder order(
+                DexOrderID::generate(),
+                _receiverAddr.m_walletID,
+                _receiverAddr.m_OwnID,
+                DexMarket(3, 0),
+                DexMarketSide::Sell,
+                10 * beam::Rules::Coin,
+                beam::Rules::Coin / 2,
+                expires
+        );
+
+        _walletModel->getAsync()->publishDexOrder(order);
     }
 
     void DexView::sellBEAMX()
@@ -48,6 +72,30 @@ namespace beamui::dex
             beam::Rules::Coin / 2,
             expires
          );
+
+        _walletModel->getAsync()->publishDexOrder(order);
+    }
+
+    void DexView::buyNONE()
+    {
+        using namespace beam;
+        using namespace beam::wallet;
+
+        _walletModel->getAsync()->saveAddress(_receiverAddr);
+
+        auto expires = beam::getTimestamp();
+        expires += 60 * 60 * 24; // 24 hours for tests
+
+        DexOrder order(
+                DexOrderID::generate(),
+                _receiverAddr.m_walletID,
+                _receiverAddr.m_OwnID,
+                DexMarket(3, 0),
+                DexMarketSide::Buy,
+                10 * beam::Rules::Coin,
+                beam::Rules::Coin / 2,
+                expires
+        );
 
         _walletModel->getAsync()->publishDexOrder(order);
     }
@@ -119,7 +167,7 @@ namespace beamui::dex
         beam::wallet::DexOrderID dexOrderId;
         if (dexOrderId.FromHex(orderId.toStdString()))
         {
-            _walletModel.getAsync()->acceptDexOrder(dexOrderId);
+            _walletModel->getAsync()->acceptDexOrder(dexOrderId);
             return;
         }
         LOG_WARNING() << "Invalid orderId in DexView::acceptOrder. This means error in somewhere the UI.";

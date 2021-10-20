@@ -2228,17 +2228,14 @@ much longer for a transaction to complete.</source>
         <translation>Это ваше разрабатываемое приложение</translation>
     </message>
     <message id="dex-all-tab">
-        <source>All orders</source>
-        <oldsource>All offers</oldsource>
-        <translation>Все заявки</translation>
+        <source>Active offers</source>
+        <oldsource>All orders</oldsource>
+        <translation type="unfinished">Все заявки</translation>
     </message>
     <message id="dex-my-tab">
-        <source>Opened by me</source>
-        <translation>Открытые мною</translation>
-    </message>
-    <message id="dex-other-tab">
-        <source>Opened by other users</source>
-        <translation>Открытые другими пользователями</translation>
+        <source>My offers</source>
+        <oldsource>Opened by me</oldsource>
+        <translation type="unfinished">Открытые мною</translation>
     </message>
     <message id="dex-type">
         <source>Type</source>
@@ -2264,15 +2261,10 @@ much longer for a transaction to complete.</source>
         <source>Accept Order</source>
         <translation>Принять заказ</translation>
     </message>
-    <message id="dex-no-orders">
-        <source>There are no active orders at the moment.
-Please try again later or create an offer yourself.</source>
-        <translation>На данный момент активных заказов нет.
-Пожалуйста, повторите попытку позже или создайте заказ самостоятельно.</translation>
-    </message>
     <message id="dex-title">
-        <source>Order Book</source>
-        <translation>Книга заказов</translation>
+        <source>Swap</source>
+        <oldsource>Order Book</oldsource>
+        <translation type="unfinished">Книга заказов</translation>
     </message>
     <message id="send-flat-fee">
         <source>%1 Transaction fee</source>
@@ -3409,6 +3401,33 @@ In case you’d like to re-use an earlier created regular address please use the
     <message id="tx-dex-default-comment">
         <source>Assets Swap transaction</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message id="dex-create-ovver">
+        <source>Create offer</source>
+        <translation type="unfinished">Создать предложение</translation>
+    </message>
+    <message id="dex-txs-tab">
+        <source>Transactions</source>
+        <translation type="unfinished">Транзакции</translation>
+    </message>
+    <message id="dex-no-txs">
+        <source>There are no transactions yet.</source>
+        <oldsource>There are no transactions.</oldsource>
+        <translation type="unfinished">На данный момент активных заказов нет.
+Пожалуйста, повторите попытку позже или создайте заказ самостоятельно.</translation>
+    </message>
+    <message id="dex-no-active-orders">
+        <source>There are no active offers at the moment.
+Please try again later or create an offer yourself.</source>
+        <oldsource>There are no active orders at the moment.
+Please try again later or create an offer yourself.</oldsource>
+        <translation type="unfinished">На данный момент активных заказов нет.
+Пожалуйста, повторите попытку позже или создайте заказ самостоятельно.</translation>
+    </message>
+    <message id="dex-no-my-orders">
+        <source>There are no offers yet.</source>
+        <oldsource>There are no active offers at the moment.</oldsource>
+        <translation type="unfinished">Пока нет предложений.</translation>
     </message>
 </context>
 </TS>

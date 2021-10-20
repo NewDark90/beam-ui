@@ -535,7 +535,7 @@ Item {
                             font.pixelSize:       14
                             color:                Style.content_main
                             opacity:              0.5
-                            lineHeight:           1.43
+                            lineHeight:           1.2
 
                             text:                 offersTable.showOnlyMyOffers == false ? 
 /*% "There are no active offers at the moment.

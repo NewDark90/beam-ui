@@ -11,13 +11,13 @@ Control {
     id: control
 
     property var viewModel
+    property int selectedAsset: -1
 
-
-    state: "allOffers"
+    state: "activeOffers"
     states: [
         State {
-            name: "allOffers"
-            PropertyChanges { target: allTab; state: "active" }
+            name: "activeOffers"
+            PropertyChanges { target: activeTab; state: "active" }
             PropertyChanges { target: ordersProxyModel; filterRole: "isMine" }
             PropertyChanges { target: ordersProxyModel; filterString: "*" }
         },
@@ -28,10 +28,8 @@ Control {
             PropertyChanges { target: ordersProxyModel; filterString: "true" }
         },
         State {
-            name: "otherOffers"
-            PropertyChanges { target: otherTab; state: "active" }
-            PropertyChanges { target: ordersProxyModel; filterRole: "isMine" }
-            PropertyChanges { target: ordersProxyModel; filterString: "false" }
+            name: "transactions"
+            PropertyChanges { target: txsTab; state: "active" }
         }
     ]
 
@@ -43,32 +41,32 @@ Control {
             Layout.bottomMargin: 10
 
             TxFilter {
-                id: allTab
+                id: activeTab
                 Layout.alignment: Qt.AlignVCenter
-                //% "All orders"
+                //% "Active offers"
                 label: qsTrId("dex-all-tab")
-                onClicked: {
-                    control.state = "allOffers"
+                onClicked: function () {
+                    control.state = "activeOffers"
                 }
             }
 
             TxFilter {
                 id: myTab
                 Layout.alignment: Qt.AlignVCenter
-                //% "Opened by me"
+                //% "My offers"
                 label: qsTrId("dex-my-tab")
-                onClicked: {
+                onClicked: function () {
                     control.state = "myOffers"
                 }
             }
 
             TxFilter {
-                id: otherTab
+                id: txsTab
                 Layout.alignment: Qt.AlignVCenter
-                //% "Opened by other users"
-                label: qsTrId("dex-other-tab")
-                onClicked: {
-                    control.state = "otherOffers"
+                //% "Transactions"
+                label: qsTrId("dex-txs-tab")
+                onClicked: function () {
+                    control.state = "transactions"
                 }
             }
         }
@@ -77,7 +75,7 @@ Control {
             id: ordersTable
             Layout.fillWidth : true
             Layout.fillHeight : true
-            visible: model.count > 0
+            visible: control.state != "transactions" && model.count > 0
 
             property real rowHeight: 56
             property real resizableWidth: width - actionsColumn.width
@@ -248,7 +246,8 @@ Control {
         ColumnLayout {
             Layout.topMargin: 100
             Layout.alignment: Qt.AlignHCenter
-            visible: ordersTable.model.count == 0
+            visible: control.state != "transactions" && ordersTable.model.count == 0 ||
+                     control.state == "transactions"
 
             SvgImage {
                 Layout.alignment: Qt.AlignHCenter
@@ -263,9 +262,23 @@ Control {
                 font.pixelSize:       14
                 color:                Style.content_main
                 opacity:              0.5
-                lineHeight:           1.43
-                //% "There are no active orders at the moment.\nPlease try again later or create an offer yourself."
-                text: qsTrId("dex-no-orders")
+                lineHeight:           1.2
+
+                text: {
+                    if (control.state == "transactions") {
+                        //% "There are no transactions yet."
+                        return qsTrId("dex-no-txs")
+                    }
+                    if (control.state == "activeOffers") {
+                        //% "There are no active offers at the moment.\nPlease try again later or create an offer yourself."
+                        return qsTrId("dex-no-active-orders")
+                    }
+                    if (control.state == "myOffers") {
+                        //% "There are no offers yet."
+                        return qsTrId("dex-no-my-orders")
+                    }
+                    return "ERROR"
+                }
             }
 
             Item {

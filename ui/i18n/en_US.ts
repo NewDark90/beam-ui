@@ -2179,16 +2179,13 @@ much longer for a transaction to complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message id="dex-all-tab">
-        <source>All orders</source>
-        <oldsource>All offers</oldsource>
+        <source>Active offers</source>
+        <oldsource>All orders</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="dex-my-tab">
-        <source>Opened by me</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="dex-other-tab">
-        <source>Opened by other users</source>
+        <source>My offers</source>
+        <oldsource>Opened by me</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message id="dex-type">
@@ -2215,14 +2212,10 @@ much longer for a transaction to complete.</source>
         <source>Accept Order</source>
         <translation type="unfinished"></translation>
     </message>
-    <message id="dex-no-orders">
-        <source>There are no active orders at the moment.
-Please try again later or create an offer yourself.</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="dex-title">
-        <source>Order Book</source>
-        <translation type="unfinished"></translation>
+        <source>Swap</source>
+        <oldsource>Order Book</oldsource>
+        <translation type="unfinished">Swap</translation>
     </message>
     <message id="send-flat-fee">
         <source>%1 Transaction fee</source>
@@ -3345,6 +3338,31 @@ In case you’d like to re-use an earlier created regular address please use the
     </message>
     <message id="tx-dex-default-comment">
         <source>Assets Swap transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="dex-create-ovver">
+        <source>Create offer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="dex-txs-tab">
+        <source>Transactions</source>
+        <translation type="unfinished">Transactions</translation>
+    </message>
+    <message id="dex-no-txs">
+        <source>There are no transactions yet.</source>
+        <oldsource>There are no transactions.</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="dex-no-active-orders">
+        <source>There are no active offers at the moment.
+Please try again later or create an offer yourself.</source>
+        <oldsource>There are no active orders at the moment.
+Please try again later or create an offer yourself.</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="dex-no-my-orders">
+        <source>There are no offers yet.</source>
+        <oldsource>There are no active offers at the moment.</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>
