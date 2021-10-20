@@ -18,7 +18,7 @@
 namespace beamui::dex
 {
     DexView::DexView()
-        : _walletModel(*AppModel::getInstance().getWalletModel())
+        : _walletModel(AppModel::getInstance().getWalletModel())
     {
         connect(&_walletModel, &WalletModel::dexOrdersChanged, this, &DexView::onDexOrdersChanged);
          connect(&_walletModel, &WalletModel::generatedNewAddress, this, &DexView::onNewAddress);
@@ -33,7 +33,7 @@ namespace beamui::dex
         using namespace beam;
         using namespace beam::wallet;
 
-        _walletModel.getAsync()->saveAddress(_receiverAddr);
+        _walletModel->getAsync()->saveAddress(_receiverAddr);
 
         auto expires = beam::getTimestamp();
         expires += 60 * 60 * 24; // 24 hours for tests
@@ -49,7 +49,7 @@ namespace beamui::dex
             expires
          );
 
-        _walletModel.getAsync()->publishDexOrder(order);
+        _walletModel->getAsync()->publishDexOrder(order);
     }
 
     void DexView::buyBEAMX()
@@ -57,7 +57,7 @@ namespace beamui::dex
         using namespace beam;
         using namespace beam::wallet;
 
-        _walletModel.getAsync()->saveAddress(_receiverAddr);
+        _walletModel->getAsync()->saveAddress(_receiverAddr);
 
         auto expires = beam::getTimestamp();
         expires += 60 * 60 * 24; // 24 hours for tests
@@ -73,7 +73,7 @@ namespace beamui::dex
             expires
          );
 
-        _walletModel.getAsync()->publishDexOrder(order);
+        _walletModel->getAsync()->publishDexOrder(order);
     }
 
     void DexView::onNewAddress(const beam::wallet::WalletAddress& addr)

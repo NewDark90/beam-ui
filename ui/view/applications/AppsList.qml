@@ -5,7 +5,7 @@ import Beam.Wallet      1.0
 import "../utils.js" as Utils
 import "../controls"
 
-ColumnLayout {
+Item {
     id: control
     property var  appsList
     property bool hasLocal
@@ -22,15 +22,13 @@ ColumnLayout {
         hasLocal = false
     }
 
-    spacing: 10
     signal launch(var app)
     signal install(string fname)
     signal uninstall(var app)
 
     DropArea {
         id: dropArea
-        Layout.fillHeight: true
-        Layout.fillWidth:  true
+        anchors.fill: parent
 
         onEntered: function (drag) {
             if (drag.urls && drag.urls.length == 1) {
@@ -44,7 +42,8 @@ ColumnLayout {
         }
 
         onDropped: function (drag) {
-            control.install(drag.urls[0])
+            let fname = drag.urls[0]
+            control.install(fname)
         }
 
         // Actuall apps list
@@ -87,7 +86,6 @@ ColumnLayout {
                                 SvgImage {
                                     id: defaultIcon
                                     source: hoverArea.containsMouse ? "qrc:/assets/icon-defapp-active.svg" : "qrc:/assets/icon-defapp.svg"
-                                    sourceSize: Qt.size(30, 30)
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     visible: !customIcon.visible
@@ -96,7 +94,6 @@ ColumnLayout {
                                 SvgImage {
                                     id: customIcon
                                     source: modelData.icon ? modelData.icon : "qrc:/assets/icon-defapp.svg"
-                                    sourceSize: Qt.size(30, 30)
                                     anchors.verticalCenter: parent.verticalCenter
                                     anchors.horizontalCenter: parent.horizontalCenter
                                     visible: !!modelData.icon && progress == 1.0

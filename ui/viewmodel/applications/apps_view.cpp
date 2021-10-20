@@ -295,29 +295,46 @@ namespace beamui::applications
         }
     }
 
-    bool AppsViewModel::installFromFile(const QString& fname)
+    QString AppsViewModel::chooseFile()
     {
-        QString archiveName = fname;
+        QFileDialog dialog(nullptr,
+                           //% "Select application to install"
+                           qtTrId("applications-install-title"),
+                           "",
+                           "BEAM DApp files (*.dapp)");
 
-        if (fname.isEmpty())
+        dialog.setWindowModality(Qt::WindowModality::ApplicationModal);
+        if (!dialog.exec())
         {
-            QFileDialog dialog(nullptr,
-                    //% "Select application to install"
-                    qtTrId("applications-install-title"),
-                    "",
-                    "BEAM DApp files (*.dapp)");
-
-            dialog.setWindowModality(Qt::WindowModality::ApplicationModal);
-            if (!dialog.exec())
-            {
-                return false;
-            }
-            archiveName = dialog.selectedFiles().value(0);
+            return "";
         }
+        return dialog.selectedFiles().value(0);
+    }
 
+    QString AppsViewModel::installFromFile(const QString& rawFname)
+    {
         try
         {
-            QuaZip zip(archiveName);
+            QString fname = rawFname;
+
+            // Some shells/systems provide incorrect count of '/' after file:
+            // For example in gnome on linux one '/' is missing. So this ugly code is necessary
+            if (fname.startsWith("file:"))
+            {
+                fname = fname.remove(0, 5);
+                while(fname.startsWith("/"))
+                {
+                    fname = fname.remove(0, 1);
+                }
+
+                #ifndef WIN32
+                fname = QString("/") + fname;
+                #endif
+            }
+
+            LOG_DEBUG() << "Installing DApp from file " << rawFname.toStdString() << " | " << fname.toStdString();
+
+            QuaZip zip(fname);
             if(!zip.open(QuaZip::Mode::mdUnzip))
             {
                 throw std::runtime_error("Failed to open the DApp file");
@@ -359,23 +376,18 @@ namespace beamui::applications
             }
 
             QDir(appsPath).mkdir(guid);
-            if(JlCompress::extractDir(archiveName, appFolder).isEmpty())
+            if(JlCompress::extractDir(fname, appFolder).isEmpty())
             {
                 //cleanupFolder(appFolder)
                 throw std::runtime_error("DApp Installation failed");
             }
 
-            //% "'%1' is successfully installed"
-            QMLGlobals::showMessage(qtTrId("appliactions-install-ok").arg(appName));
-            return true;
+            return appName;
         }
         catch(std::exception& err)
         {
-            //% "Failed to install DApp:\n%1"
-            const auto errMsg = qtTrId("appliactions-install-fail").arg(err.what());
-            LOG_ERROR() << errMsg.toStdString();
-            QMLGlobals::showMessage(errMsg);
-            return false;
+            LOG_ERROR() << "Failed to install DApp: " << err.what();
+            return "";
         }
     }
 }

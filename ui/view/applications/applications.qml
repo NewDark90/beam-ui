@@ -12,6 +12,7 @@ import "."
 ColumnLayout {
     id: control
     Layout.fillWidth: true
+    spacing: 0
 
     property string   errorMessage: ""
     property var      appsList: undefined
@@ -295,21 +296,19 @@ ColumnLayout {
         }
     }
 
-    ColumnLayout {
+    Item {
         id: webLayout
 
         Layout.fillHeight:   true
         Layout.fillWidth:    true
-        Layout.bottomMargin: 10
+        Layout.bottomMargin: txPanel.folded ? 10 : 0
         visible: false
+        opacity: txPanel.folded ? 1.0 : 0.25
+        clip:    true
 
         WebEngineView {
             id: webView
-
-            Layout.fillWidth:    true
-            Layout.fillHeight:   true
-            Layout.bottomMargin: 10
-
+            anchors.fill: parent
             webChannel: apiChannel
             visible: true
             backgroundColor: "transparent"
@@ -371,6 +370,21 @@ ColumnLayout {
                 req.accepted = true
             }
         }
+
+        MouseArea {
+            anchors.fill: parent
+            visible: !txPanel.folded
+            hoverEnabled: true
+
+            onClicked: function (ev) {
+                txPanel.folded = true
+                ev.accepted = true
+            }
+
+            onWheel: function (ev) {
+                ev.accepted = true
+            }
+        }
     }
 
     SFText {
@@ -389,8 +403,9 @@ ColumnLayout {
         Layout.topMargin:  40 - (unsupportedCnt ? errCntMessage.height + 5 + parent.spacing : 0)
         Layout.fillHeight: true
         Layout.fillWidth:  true
-        Layout.bottomMargin: 10
-        visible: control.hasApps && !control.activeApp
+        Layout.bottomMargin: txPanel.folded ? 10 : 0
+        opacity:  txPanel.folded ? 1.0 : 0.25
+        visible:  control.hasApps && !control.activeApp
         appsList: control.appsList
 
         onLaunch: function (app) {
@@ -398,32 +413,62 @@ ColumnLayout {
         }
 
         onInstall: function (fname) {
-            if (viewModel.installFromFile(fname)) {
+            if (!fname) {
+                fname = viewModel.chooseFile()
+                if (!fname) return
+            }
+
+            var appName = viewModel.installFromFile(fname)
+            if (appName.length) {
                 loadAppsList()
+                //% "'%1' is successfully installed."
+                installOK.text = qsTrId("apps-install-success").arg(appName)
+                installOK.open()
+            } else {
+                //% "Failed to install DApp:\n%1"
+                installFail.text = qsTrId("apps-install-fail").arg(fname)
+                installFail.open()
             }
         }
 
         onUninstall: function (app) {
             if (viewModel.uninstallLocalApp(app.appid)) {
-                //% "%1 DApp is successfully uninstalled."
-                installOK.text = qsTrId("apps-uninstall-success").arg(app.name)
-                installOK.open()
+
+                //% "'%1' DApp is successfully uninstalled."
+                uninstallOK.text = qsTrId("apps-uninstall-success").arg(app.name)
+                uninstallOK.open()
             } else {
-                //% "Failed to uninstall %1 DApp."
-                installFail.text = qsTrId("apps-uninstall-fail").arg(app.name)
-                installFail.open()
+                //% "Failed to uninstall '%1' DApp."
+                uninstallFail.text = qsTrId("apps-uninstall-fail").arg(app.name)
+                uninstallFail.open()
             }
             loadAppsList()
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            visible: !txPanel.folded
+            hoverEnabled: true
+
+            onClicked: function (ev) {
+                txPanel.folded = true
+                ev.accepted = true
+            }
+
+            onWheel: function (ev) {
+                ev.accepted = true
+            }
         }
     }
 
     FoldablePanel {
+        id:                  txPanel
         title:               qsTrId("wallet-transactions-title")
         folded:              !control.openedTxID
         titleOpacity:        0.5
         Layout.fillWidth:    true
         Layout.bottomMargin: 10
-        contentItemHeight:   control.height * 0.32
+        contentItemHeight:   control.height * 0.36
         bottomPadding:       folded ? 20 : 5
         foldsUp:             false
         visible:             appsListView.visible || webLayout.visible
@@ -517,6 +562,25 @@ ColumnLayout {
 
     ConfirmationDialog {
         id: installOK
+        //% "Install DApp"
+        title: qsTrId("app-install-title")
+        //% "Ok"
+        okButtonText: qsTrId("general-ok")
+        cancelButtonVisible: false
+    }
+
+    ConfirmationDialog {
+        id: installFail
+        //% "Install DApp"
+        title: qsTrId("app-install-title")
+        //% "Ok"
+        okButtonText: qsTrId("general-ok")
+        okButton.palette.button: Style.accent_fail
+        cancelButtonVisible: false
+    }
+
+    ConfirmationDialog {
+        id: uninstallOK
         //% "Uninstall DApp"
         title: qsTrId("app-uninstall-title")
         //% "Ok"
@@ -525,7 +589,7 @@ ColumnLayout {
     }
 
     ConfirmationDialog {
-        id: installFail
+        id: uninstallFail
         //% "Uninstall DApp"
         title: qsTrId("app-uninstall-title")
         //% "Ok"
