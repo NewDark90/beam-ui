@@ -37,7 +37,7 @@ namespace
     const char* kDAppsAllowed = "dapps_allowed";
     const char* kshowSwapBetaWarning = "show_swap_beta_warning";
     const char* kRateUnit = "rateUnit";
-    const char* kLastAssetSelection = "lastAssetSelection";
+    const char* kLastAssetSelection = "lastAssetSelection_";
     const char* kShowFaucetPromo = "showFaucetPromo";
     const char* kHideSeedValidationPromo = "hideSeedValidationPromo";
     const char* kDevMode ="dev_mode";
@@ -844,13 +844,21 @@ void WalletSettings::setMinConfirmations(uint32_t value)
     }
 }
 
-boost::optional<beam::Asset::ID> WalletSettings::getLastAssetSelection() const
+boost::optional<beam::Asset::ID> WalletSettings::getLastAssetSelection(const QString& key) const
 {
-    Lock lock(m_mutex);
-
-    if (m_data.contains(kLastAssetSelection))
+    if (key.isEmpty())
     {
-        return m_data.value(kLastAssetSelection).toInt();
+        assert(false);
+        LOG_WARNING() << "getLastAssetSelection on empty key";
+        return boost::none;
+    }
+
+    Lock lock(m_mutex);
+    auto fullKey = QString(kLastAssetSelection) + key;
+
+    if (m_data.contains(fullKey))
+    {
+        return m_data.value(fullKey).toInt();
     }
     else
     {
@@ -858,15 +866,24 @@ boost::optional<beam::Asset::ID> WalletSettings::getLastAssetSelection() const
     }
 }
 
-void WalletSettings::setLastAssetSelection(boost::optional<beam::Asset::ID> selection)
+void WalletSettings::setLastAssetSelection(const QString& key, boost::optional<beam::Asset::ID> selection)
 {
+    if (key.isEmpty())
+    {
+        assert(false);
+        LOG_WARNING() << "setLastAssetSelection on empty key";
+        return;
+    }
+
     Lock lock(m_mutex);
+    auto fullKey = QString(kLastAssetSelection) + key;
+
     if (selection.is_initialized())
     {
-        m_data.setValue(kLastAssetSelection, *selection);
+        m_data.setValue(fullKey, *selection);
     }
     else
     {
-        m_data.remove(kLastAssetSelection);
+        m_data.remove(fullKey);
     }
 }

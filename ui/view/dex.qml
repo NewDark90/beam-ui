@@ -89,6 +89,10 @@ Item {
             Layout.topMargin: 20
             Layout.fillWidth: true
 
+            showFaucetPromo: false
+            showValidationPromo: false
+            settingsKey: "dex"
+
             Binding {
                 target:    marketTable
                 property:  "selectedAsset"

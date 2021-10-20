@@ -22,10 +22,11 @@ class AssetsViewModel : public QObject {
     Q_OBJECT
     Q_PROPERTY(QAbstractItemModel* assets READ getAssets CONSTANT)
 
-    Q_PROPERTY(int  selectedAsset           READ getSelectedAsset          WRITE setSelectedAsset        NOTIFY selectedAssetChanged)
-    Q_PROPERTY(bool showFaucetPromo         READ getShowFaucetPromo        WRITE setShowFaucetPromo      NOTIFY showFaucetPromoChanged)
-    Q_PROPERTY(bool showValidationPromo     READ getShowValidationPromo    WRITE setShowValidationPromo  NOTIFY showValidationPromoChanged)
-    Q_PROPERTY(bool canHideValidationPromo  READ getCanHideValidationPromo NOTIFY canHideValidationPromoChanged )
+    Q_PROPERTY(int      selectedAsset           READ getSelectedAsset          WRITE setSelectedAsset        NOTIFY selectedAssetChanged)
+    Q_PROPERTY(bool     showFaucetPromo         READ getShowFaucetPromo        WRITE setShowFaucetPromo      NOTIFY showFaucetPromoChanged)
+    Q_PROPERTY(bool     showValidationPromo     READ getShowValidationPromo    WRITE setShowValidationPromo  NOTIFY showValidationPromoChanged)
+    Q_PROPERTY(QString  settingsKey             READ getSettingsKey            WRITE setSettingsKey          NOTIFY settingsKeyChanged)
+    Q_PROPERTY(bool     canHideValidationPromo  READ getCanHideValidationPromo NOTIFY canHideValidationPromoChanged )
 
 public:
     AssetsViewModel();
@@ -41,6 +42,9 @@ public:
     [[nodiscard]] bool getShowValidationPromo() const;
     void setShowValidationPromo(bool value);
 
+    [[nodiscard]] QString getSettingsKey() const;
+    void setSettingsKey(const QString& value);
+
     [[nodiscard]] bool getCanHideValidationPromo() const;
 
 public slots:
@@ -52,6 +56,7 @@ signals:
     void showFaucetPromoChanged();
     void showValidationPromoChanged();
     void canHideValidationPromoChanged();
+    void settingsKeyChanged();
 
 private:
     bool hasBeamAmount() const;
@@ -59,5 +64,7 @@ private:
     WalletModel::Ptr _wallet;
     AssetsList::Ptr  _assets;
     WalletSettings&  _settings;
+
+    QString _settingsKey;
     boost::optional<beam::Asset::ID> _selectedAsset;
 };

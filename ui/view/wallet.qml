@@ -147,6 +147,7 @@ Item {
                 id: assets
                 Layout.topMargin: 25
                 Layout.fillWidth: true
+                settingsKey: "wallet"
 
                 Binding {
                     target:    txTable

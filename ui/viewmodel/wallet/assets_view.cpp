@@ -21,13 +21,28 @@ AssetsViewModel::AssetsViewModel()
 {
     connect(_wallet.get(), &WalletModel::normalCoinsChanged,  this, &AssetsViewModel::onNormalCoinsChanged);
     connect(_wallet.get(), &WalletModel::shieldedCoinChanged, this, &AssetsViewModel::onShieldedCoinChanged);
-    _selectedAsset = _settings.getLastAssetSelection();
-    emit selectedAssetChanged();
 }
 
 QAbstractItemModel* AssetsViewModel::getAssets()
 {
     return _assets.get();
+}
+
+QString AssetsViewModel::getSettingsKey() const
+{
+    return _settingsKey;
+}
+
+void AssetsViewModel::setSettingsKey(const QString& value)
+{
+    if (_settingsKey != value)
+    {
+        _settingsKey = value;
+        emit settingsKeyChanged();
+
+        _selectedAsset = _settings.getLastAssetSelection(_settingsKey);
+        emit selectedAssetChanged();
+    }
 }
 
 int AssetsViewModel::getSelectedAsset() const
@@ -46,7 +61,7 @@ void AssetsViewModel::setSelectedAsset(int assetId)
     if (_selectedAsset != newSelection)
     {
         _selectedAsset = newSelection;
-        _settings.setLastAssetSelection(_selectedAsset);
+        _settings.setLastAssetSelection(_settingsKey, _selectedAsset);
         emit selectedAssetChanged();
     }
 }

@@ -36,11 +36,11 @@ Control {
                     return
                 }
             }
-        }
 
-        // there is no previously selected asset
-        // reset selection to nothing
-        selectedId  = -1
+            // there is no previously selected asset
+            // reset selection to nothing
+            selectedId = -1
+        }
     }
 
     Component.onCompleted: function() {
@@ -53,6 +53,7 @@ Control {
     property real   vSpacing:       10
     property int    maxVisibleRows: 3
     property alias  selectedId:     viewModel.selectedAsset
+    property alias  settingsKey:    viewModel.settingsKey
     property int    assetsCount:    1
     property real   itemHeight:     75
 
