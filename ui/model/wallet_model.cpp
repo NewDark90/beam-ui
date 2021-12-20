@@ -47,7 +47,7 @@ WalletModel::WalletModel(beam::wallet::IWalletDB::Ptr walletDB, const std::strin
     qRegisterMetaType<beam::wallet::VersionInfo>("beam::wallet::VersionInfo");
     qRegisterMetaType<beam::wallet::WalletImplVerInfo>("beam::wallet::WalletImplVerInfo");
     qRegisterMetaType<ECC::uintBig>("ECC::uintBig");
-    qRegisterMetaType<boost::optional<beam::wallet::WalletAddress>>("boost::optional<beam::wallet::WalletAddress>");
+    // qRegisterMetaType<boost::optional<beam::wallet::WalletAddress>>("boost::optional<beam::wallet::WalletAddress>");
     qRegisterMetaType<beam::wallet::CoinsSelectionInfo>("beam::wallet::CoinsSelectionInfo");
     qRegisterMetaType<vector<beam::wallet::DexOrder>>("std::vector<beam::wallet::DexOrder>");
 

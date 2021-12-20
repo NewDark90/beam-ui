@@ -105,14 +105,14 @@ int main (int argc, char* argv[])
 {
     wallet::g_AssetsEnabled = true;
 
-    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    // QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 
     block_sigpipe();
     QApplication app(argc, argv);
     QApplication::setApplicationName(QMLGlobals::getAppName());
     QApplication::setWindowIcon(QIcon(Theme::iconPath()));
-    QDir appDataDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
+    QDir appDataDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 
     try
     {

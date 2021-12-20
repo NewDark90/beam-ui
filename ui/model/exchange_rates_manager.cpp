@@ -114,7 +114,7 @@ beam::wallet::Currency ExchangeRatesManager::getRateCurrency() const
 QDateTime ExchangeRatesManager::getUpdateTime() const
 {
     QDateTime datetime;
-    datetime.setTime_t(m_updateTime);
+    // datetime.setTime_t(m_updateTime);
     return datetime;
 }
 

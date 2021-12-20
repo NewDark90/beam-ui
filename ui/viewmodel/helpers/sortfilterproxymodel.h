@@ -15,6 +15,7 @@
 
 #include <QtCore/qsortfilterproxymodel.h>
 #include <QtQml/qqmlparserstatus.h>
+#include <QRegularExpression>
 
 class SortFilterProxyModel : public QSortFilterProxyModel, public QQmlParserStatus
 {
@@ -28,10 +29,10 @@ class SortFilterProxyModel : public QSortFilterProxyModel, public QQmlParserStat
     Q_PROPERTY(Qt::SortOrder sortOrder READ sortOrder WRITE setSortOrder)
 
     Q_PROPERTY(QByteArray filterRole READ filterRole WRITE setFilterRole)
-    Q_PROPERTY(QString filterString READ filterString WRITE setFilterString)
-    Q_PROPERTY(FilterSyntax filterSyntax READ filterSyntax WRITE setFilterSyntax)
+    // Q_PROPERTY(QString filterString READ filterString WRITE setFilterString)
+    // Q_PROPERTY(FilterSyntax filterSyntax READ filterSyntax WRITE setFilterSyntax)
 
-    Q_ENUMS(FilterSyntax)
+    // Q_ENUMS(FilterSyntax)
 
 public:
     explicit SortFilterProxyModel(QObject *parent = 0);
@@ -47,17 +48,17 @@ public:
     QByteArray filterRole() const;
     void setFilterRole(const QByteArray &role);
 
-    QString filterString() const;
-    void setFilterString(const QString &filter);
+    // QString filterString() const;
+    // void setFilterString(const QString &filter);
 
-    enum FilterSyntax {
-        RegExp,
-        Wildcard,
-        FixedString
-    };
+    // enum FilterSyntax {
+    //     QRegularExpression,
+    //     Wildcard,
+    //     FixedString
+    // };
 
-    FilterSyntax filterSyntax() const;
-    void setFilterSyntax(FilterSyntax syntax);
+    // FilterSyntax filterSyntax() const;
+    // void setFilterSyntax(FilterSyntax syntax);
 
     int count() const;
     Q_INVOKABLE QVariantMap get(int index) const;

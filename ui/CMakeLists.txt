@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.13)
 set (TARGET_NAME "beam-wallet-ui")
 
 function(BEAM_TRANSLATIONS_UPDATE_TS supported_langs out_ts_files)
-    find_package(Qt5LinguistTools)
-    if (Qt5LinguistTools_FOUND)
+    find_package(Qt6LinguistTools)
+    if (Qt6LinguistTools_FOUND)
         if(LINUX)
             execute_process(COMMAND awk -F= "/^NAME/{print $2}" /etc/os-release 
                             OUTPUT_VARIABLE DISTR_NAME
@@ -16,20 +16,20 @@ function(BEAM_TRANSLATIONS_UPDATE_TS supported_langs out_ts_files)
         list(APPEND TS_FILES "${TS_FILE}")
         message("update: ${TS_FILE}")
         if (DISTR_NAME AND ("${DISTR_NAME}" STREQUAL "Fedora"))
-            execute_process(COMMAND lupdate-qt5 -recursive -locations none -no-obsolete ${CMAKE_CURRENT_SOURCE_DIR} -ts "${TS_FILE}")
+            execute_process(COMMAND lupdate-qt6 -recursive -locations none -no-obsolete ${CMAKE_CURRENT_SOURCE_DIR} -ts "${TS_FILE}")
         else()
             execute_process(COMMAND lupdate -recursive -locations none -no-obsolete ${CMAKE_CURRENT_SOURCE_DIR} -ts "${TS_FILE}")
         endif()
     endforeach()
     set(${out_ts_files} ${TS_FILES} PARENT_SCOPE)
     else()
-        message("Qt5LinguistTools not found, please check your QT5 instalation")
+        message("Qt6LinguistTools not found, please check your QT6 instalation")
     endif()
 endfunction()
 
 function(BEAM_TRANSLATIONS_COMPILE_QM ts_files out_qm_files)
-    find_package(Qt5LinguistTools)
-    if (Qt5LinguistTools_FOUND)
+    find_package(Qt6LinguistTools)
+    if (Qt6LinguistTools_FOUND)
         if(LINUX)
             execute_process(COMMAND awk -F= "/^NAME/{print $2}" /etc/os-release
                             OUTPUT_VARIABLE DISTR_NAME
@@ -41,7 +41,7 @@ function(BEAM_TRANSLATIONS_COMPILE_QM ts_files out_qm_files)
         set(QM_FILE_NAME "${TS_FILE_WE}.qm")
         list(APPEND QM_FILES "${QM_FILE_NAME}")
         if (DISTR_NAME AND ("${DISTR_NAME}" STREQUAL "Fedora"))
-            execute_process(COMMAND lrelease-qt5 -idbased "${TS_FILE}" -qm "${CMAKE_CURRENT_SOURCE_DIR}/${QM_FILE_NAME}")
+            execute_process(COMMAND lrelease-qt6 -idbased "${TS_FILE}" -qm "${CMAKE_CURRENT_SOURCE_DIR}/${QM_FILE_NAME}")
         else()
             execute_process(COMMAND lrelease -idbased "${TS_FILE}" -qm "${CMAKE_CURRENT_SOURCE_DIR}/${QM_FILE_NAME}")
         endif()
@@ -49,7 +49,7 @@ function(BEAM_TRANSLATIONS_COMPILE_QM ts_files out_qm_files)
     endforeach()
     set(${out_qm_files} ${QM_FILES} PARENT_SCOPE)
     else()
-        message("Qt5LinguistTools not found, please check your QT5 instalation")
+        message("Qt6LinguistTools not found, please check your QT6 instalation")
     endif()
 endfunction()
 
@@ -61,7 +61,10 @@ else()
 endif()
 set (CMAKE_PREFIX_PATH $ENV{QT5_ROOT_DIR})
 
-find_package(Qt5 COMPONENTS Qml Quick Svg WebEngine WebEngineWidgets REQUIRED)
+find_package(Qt6 COMPONENTS Qml Quick Svg REQUIRED)
+find_package(Qt6 COMPONENTS WebEngineCore REQUIRED)
+find_package(Qt6 COMPONENTS WebEngineWidgets REQUIRED)
+# find_package(Qt6 COMPONENTS Qml Quick Svg WebEngine WebEngineWidgets REQUIRED)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -243,12 +246,12 @@ endforeach ()
 file(APPEND "${TRANSLATIONS_QRC_FILE}" "\t</qresource>\n</RCC>")
 
 
-find_package(Qt5QuickCompiler)
-if(Qt5QuickCompiler_FOUND)
-    qtquick_compiler_add_resources(QT_RESOURCES view/qml.qrc ${TRANSLATIONS_QRC_FILE})
-else()
-    qt5_add_resources(QT_RESOURCES view/qml.qrc ${TRANSLATIONS_QRC_FILE})
-endif()
+# find_package(Qt6QuickCompiler)
+# if(Qt6QuickCompiler_FOUND)
+#     qtquick_compiler_add_resources(QT_RESOURCES view/qml.qrc ${TRANSLATIONS_QRC_FILE})
+# else()
+#     qt6_add_resources(QT_RESOURCES view/qml.qrc ${TRANSLATIONS_QRC_FILE})
+# endif()
 
 if(WIN32)
     add_definitions(-DWIN32_LEAN_AND_MEAN)
@@ -334,11 +337,11 @@ target_link_libraries(${TARGET_NAME}
         wallet_client
         wallet_api
         mnemonic 
-        Qt5::Qml
-        Qt5::Quick 
-        Qt5::Svg
-        Qt5::WebEngine
-        Qt5::WebEngineWidgets
+        Qt6::Qml
+        Qt6::Quick
+        Qt6::Svg
+        Qt6::WebEngineCore
+        Qt6::WebEngineWidgets
 )
 
 if (BEAM_SIGN_PACKAGE AND WIN32)

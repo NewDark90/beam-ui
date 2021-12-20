@@ -695,7 +695,7 @@ void SwapCoinSettingsItem::applyNodeAddress(const QString& address)
 {
     auto unpackedAddress = parseAddress(address);
     setNodeAddress(unpackedAddress.address);
-    if (unpackedAddress.port > 0)
+    if (unpackedAddress.port.toInt() > 0)
     {
         setNodePort(unpackedAddress.port);
     }
@@ -705,7 +705,7 @@ void SwapCoinSettingsItem::applyNodeAddressElectrum(const QString& address)
 {
     auto unpackedAddress = parseAddress(address);
     setNodeAddressElectrum(unpackedAddress.address);
-    if (unpackedAddress.port > 0)
+    if (unpackedAddress.port.toInt() > 0)
     {
         setNodePortElectrum(unpackedAddress.port);
     }

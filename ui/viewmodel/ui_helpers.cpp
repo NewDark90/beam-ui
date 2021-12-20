@@ -174,7 +174,7 @@ namespace beamui
     QString toString(const beam::Timestamp& ts)
     {
         QDateTime datetime;
-        datetime.setTime_t(ts);
+        // datetime.setTime_t(ts);
         return toString(datetime);
     }
 
@@ -316,14 +316,14 @@ namespace beamui
     {
         QDateTime expiresTime = QDateTime();
 
-        if (currentHeight <= expiresHeight)
-        {
-            expiresTime.setTime_t(currentHeightTime + (expiresHeight - currentHeight) * 60);
-        }
-        else
-        {
-            expiresTime.setTime_t(currentHeightTime - (currentHeight - expiresHeight) * 60);
-        }
+        // if (currentHeight <= expiresHeight)
+        // {
+        //     expiresTime.setTime_t(currentHeightTime + (expiresHeight - currentHeight) * 60);
+        // }
+        // else
+        // {
+        //     expiresTime.setTime_t(currentHeightTime - (currentHeight - expiresHeight) * 60);
+        // }
         
         return expiresTime;
     }

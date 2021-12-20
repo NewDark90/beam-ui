@@ -161,7 +161,7 @@ else()
         if(ARCH_NATIVE)
             set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
         else()
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=core2")
+            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mcpu=apple-m1")
         endif()
     endif()
 

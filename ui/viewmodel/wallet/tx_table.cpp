@@ -64,9 +64,9 @@ void TxTableViewModel::onTxHistoryExportedToCsv(const QString& data)
         QFile file(path);
         if (file.open(QIODevice::WriteOnly | QIODevice::Text))
         {
-            QTextCodec *codec = QTextCodec::codecForName("UTF8");
+            // QTextCodec *codec = QTextCodec::codecForName("UTF8");
             QTextStream out(&file);
-            out.setCodec(codec);
+            // out.setCodec(codec);
             out << data;
         }
     }

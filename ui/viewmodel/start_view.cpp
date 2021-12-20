@@ -108,8 +108,8 @@ namespace
         #pragma GCC diagnostic push
         #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #endif
-        QJSValue v = jsCallback.engine()->toScriptValue(res);
-        jsCallback.call(QJSValueList{ v });
+        // QJSValue v = jsCallback.engine()->toScriptValue(res);
+        // jsCallback.call(QJSValueList{ v });
 #if defined(__clang__) || defined(__GNUC__) || defined(__GNUG__)
         #pragma GCC diagnostic pop
 #endif
@@ -779,7 +779,7 @@ void StartViewModel::findExistingWalletDB()
     auto appDataPath = AppModel::getInstance().getSettings().getAppDataPath();
     pathsToCheck.insert(appDataPath);
 
-    auto defaultAppDataPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation).toStdString();
+    auto defaultAppDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation).toStdString();
     pathsToCheck.insert(defaultAppDataPath);
 
     #ifdef Q_OS_LINUX

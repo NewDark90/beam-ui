@@ -426,7 +426,7 @@ void SettingsViewModel::undoChanges()
 {
     auto unpackedAddress = parseAddress(m_settings.getNodeAddress());
     setNodeAddress(unpackedAddress.address);
-    if (unpackedAddress.port > 0)
+    if (unpackedAddress.port.toInt() > 0)
     {
         setRemoteNodePort(unpackedAddress.port);
     }
