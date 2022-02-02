@@ -3441,5 +3441,9 @@ In case you’d like to re-use an earlier created regular address please use the
         <source>The DApp installation error.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="setting-search-transactions-placeholder">
+        <source>Search by section name or parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

@@ -3447,5 +3447,9 @@ Als u een eerder aangemaakt standaard adres opnieuw wilt gebruiken, gebruik dan 
         <source>The DApp installation error.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message id="setting-search-transactions-placeholder">
+        <source>Search by section name or parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

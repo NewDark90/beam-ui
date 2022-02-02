@@ -3439,5 +3439,9 @@ In case you’d like to re-use an earlier created regular address please use the
         <source>The DApp installation error.</source>
         <translation>The DApp installation error.</translation>
     </message>
+    <message id="setting-search-transactions-placeholder">
+        <source>Search by section name or parameter</source>
+        <translation>Search by section name or parameter</translation>
+    </message>
 </context>
 </TS>

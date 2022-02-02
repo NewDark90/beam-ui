@@ -65,6 +65,14 @@ ColumnLayout {
         model: statusbarModel
     }
 
+    SearchBox {
+       id: searchBox
+       Layout.preferredWidth: 300
+       Layout.alignment: Qt.AlignRight
+       //% "Search by section name or parameter"
+       placeholderText: qsTrId("setting-search-transactions-placeholder")
+    }
+
     ScrollView {
         Layout.topMargin:  25
         Layout.fillHeight: true
