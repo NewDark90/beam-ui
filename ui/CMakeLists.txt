@@ -206,6 +206,10 @@ set(UI_SRC
     viewmodel/dex/dex_view.cpp
     viewmodel/dex/dex_order_object.cpp
     viewmodel/dex/dex_orders_list.cpp
+    viewmodel/searchIndexer.h
+    viewmodel/searchIndexer.cpp
+    viewmodel/searchBoxHandler.h
+    viewmodel/searchBoxHandler.cpp
 
     model/wallet_model.h
     model/wallet_model.cpp

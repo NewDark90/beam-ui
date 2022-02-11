@@ -42,6 +42,8 @@
 #include "viewmodel/theme.h"
 #include "viewmodel/receive_view.h"
 #include "viewmodel/receive_swap_view.h"
+#include "viewmodel/searchBoxHandler.h"
+#include "viewmodel/searchIndexer.h"
 #include "viewmodel/send_view.h"
 #include "viewmodel/send_swap_view.h"
 #include "viewmodel/el_seed_validator.h"
@@ -295,6 +297,8 @@ int main (int argc, char* argv[])
             qmlRegisterType<QR>("Beam.Wallet", 1, 0, "QR");
             qmlRegisterType<beamui::dex::DexView>("Beam.Wallet", 1, 0, "DexViewModel");
             qmlRegisterType<AppNotificationHelper>("Beam.Wallet", 1, 0, "AppNotificationHelper");
+            qmlRegisterType<SearchBoxHandler>("Beam.Wallet", 1, 0, "SearchBoxHandler");
+            qmlRegisterType<SearchIndexer>("Beam.Wallet", 1, 0, "SearchIndexer");
             beamui::applications::RegisterQMLTypes();
 
             engine.load(QUrl("qrc:/root.qml"));

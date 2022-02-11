@@ -18,6 +18,11 @@ ColumnLayout {
 
     property bool settingsPrivacyFolded: true
 
+    property string searchBoxText: searchBox.text
+    onSearchBoxTextChanged: function() {
+    //    console.log("________________________________________________________________________")
+    }
+
     Component.onCompleted: {
         settingsView.creating = false
     }
@@ -26,15 +31,38 @@ ColumnLayout {
         id: viewModel
     }
 
+    SearchBoxHandler {
+        id: searchBoxHandler
+        viewId: settingsView
+    }
+
+    // function createIndexer(parentItem, fieldText) {
+    //     var newObject = Qt.createQmlObject("SearchIndexer { id: indexer, fieldId: parentItem, text: fieldText, handler: searchBoxHandler, Component.onCompleted: {indexer.addIndexToHandler()} }",
+    //                                parentItem,
+    //                                "dynamicObject");
+    //     newObject.destroy();
+    //     return fieldText;
+    // }
+
     RowLayout {
         id: mainColumn
         Layout.fillWidth:     true
         Layout.minimumHeight: 40
         Layout.alignment:     Qt.AlignTop
 
-        Title {
+        SearchIndexer {
+            id: indexer
+            fieldId: titleId
             //% "Settings"
             text: qsTrId("settings-title")
+            handler: searchBoxHandler
+            Component.onCompleted: indexer.addIndexToHandler()
+        }
+        Title {
+            id: titleId
+            text: indexer.text
+            // //% "Settings"
+            // text: createIndexer(titleId, qsTrId("settings-title"))
         }
 
         SFText {
@@ -397,7 +425,7 @@ ColumnLayout {
                             swapEthSettings.isCurrentSeedValid   = viewModel.ethSettings.isCurrentSeedValid
                         }
                     }
-                    
+
                     onDisconnect:                viewModel.ethSettings.disconnect()
                     onApplySettings:             viewModel.ethSettings.applySettings()
                     onClearSettings:             viewModel.ethSettings.clearSettings()
