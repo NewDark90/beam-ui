@@ -15,7 +15,8 @@
 #pragma once
 
 #include <QObject>
-#include <QMultiMap>
+#include <QPair>
+#include <QVector>
 
 class SearchBoxHandler : public QObject
 {
@@ -36,11 +37,11 @@ public:
 
     void addIndex(QString& key, QObject* value);
 
-//    Q_INVOKABLE bool search(QString& key, QObject* value);
+    Q_INVOKABLE QVector<QObject*> search(const QString& str);
 
 signals:
 
 private:
     QObject* _viewId;
-    QMultiMap<QString, QObject*> _indexes;
+    QVector<QPair<QString, QObject*>> _indexes;
 };

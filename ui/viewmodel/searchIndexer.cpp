@@ -1,5 +1,4 @@
 #include "searchIndexer.h"
-#include <QDebug>
 
 SearchIndexer::~SearchIndexer()
 {
@@ -14,7 +13,6 @@ QObject* SearchIndexer::getFieldId() const
 void SearchIndexer::setFieldId(QObject* fieldId)
 {
     _fieldId = fieldId;
-    qDebug() << _fieldId;
 }
 
 QString SearchIndexer::getText() const
@@ -24,7 +22,6 @@ QString SearchIndexer::getText() const
 void SearchIndexer::setText(QString text)
 {
     _text = text;
-    qDebug() << _text;
 }
 
 SearchBoxHandler* SearchIndexer::getHandler() const
@@ -34,7 +31,6 @@ SearchBoxHandler* SearchIndexer::getHandler() const
 void SearchIndexer::setHandler(SearchBoxHandler* handler)
 {
     _handler = handler;
-    qDebug() << _handler;
 }
 
 void SearchIndexer::addIndexToHandler()

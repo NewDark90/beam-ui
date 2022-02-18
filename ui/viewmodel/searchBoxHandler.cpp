@@ -1,10 +1,9 @@
 #include "searchBoxHandler.h"
-#include <QDebug>
 
 SearchBoxHandler::~SearchBoxHandler()
 {
     delete(_viewId);
-    qDeleteAll(_indexes);
+    //qDeleteAll(_indexes);
 }
 
 QObject* SearchBoxHandler::getViewId() const
@@ -24,7 +23,18 @@ SearchBoxHandler* SearchBoxHandler::getHandler()
 
 void SearchBoxHandler::addIndex(QString& key, QObject* value)
 {
-    _indexes.insert(key, value);
-    qDebug() << "keu"<< key;
-    qDebug() << value;
+    _indexes.push_back(qMakePair(key.toLower(), value));
+}
+
+QVector<QObject*> SearchBoxHandler::search(const QString& str)
+{
+    QVector<QObject*> searchResult;
+    foreach(auto pair, _indexes)
+    {
+        if(!pair.first.isEmpty() && pair.first.contains(str.toLower()))
+        {
+            searchResult.push_back(pair.second);
+        }
+    }
+    return searchResult;
 }

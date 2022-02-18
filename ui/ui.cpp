@@ -257,6 +257,8 @@ int main (int argc, char* argv[])
             qRegisterMetaType<QVector<beam::Asset::ID>>("QVector<beam::Asset::ID>");
             qRegisterMetaType<std::vector<beam::wallet::VerificationInfo>>("std::vector<beam::wallet::VerificationInfo>");
             qRegisterMetaType<beam::wallet::WalletAsset>("beam::wallet::WalletAsset");
+            qRegisterMetaType<QVector<QObject*>>("QVector<QObject*>");
+            qRegisterMetaType<QString>("QString");
             qmlRegisterType<StartViewModel>("Beam.Wallet", 1, 0, "StartViewModel");
             qmlRegisterType<LoadingViewModel>("Beam.Wallet", 1, 0, "LoadingViewModel");
             qmlRegisterType<MainViewModel>("Beam.Wallet", 1, 0, "MainViewModel");
@@ -298,7 +300,7 @@ int main (int argc, char* argv[])
             qmlRegisterType<beamui::dex::DexView>("Beam.Wallet", 1, 0, "DexViewModel");
             qmlRegisterType<AppNotificationHelper>("Beam.Wallet", 1, 0, "AppNotificationHelper");
             qmlRegisterType<SearchBoxHandler>("Beam.Wallet", 1, 0, "SearchBoxHandler");
-            qmlRegisterType<SearchIndexer>("Beam.Wallet", 1, 0, "SearchIndexer");
+            qmlRegisterType<SearchIndexer>("Beam.Wallet", 1, 0, "SearchIndexer");            
             beamui::applications::RegisterQMLTypes();
 
             engine.load(QUrl("qrc:/root.qml"));

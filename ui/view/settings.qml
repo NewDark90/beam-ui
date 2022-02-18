@@ -18,9 +18,11 @@ ColumnLayout {
 
     property bool settingsPrivacyFolded: true
 
+    property var    foundText: []
     property string searchBoxText: searchBox.text
     onSearchBoxTextChanged: function() {
-    //    console.log("________________________________________________________________________")
+        foundText = searchBoxHandler.search(searchBoxText)
+        console.log("searchBoxText:", searchBoxText, "foundText:", foundText)
     }
 
     Component.onCompleted: {
@@ -29,6 +31,10 @@ ColumnLayout {
 
     SettingsViewModel {
         id: viewModel
+    }
+
+    function getHighlitedText(text) {
+        return Utils.getHighlitedText(text, searchBoxText, Style.accent_incoming.toString());
     }
 
     SearchBoxHandler {
@@ -53,14 +59,15 @@ ColumnLayout {
         SearchIndexer {
             id: indexer
             fieldId: titleId
-            //% "Settings"
-            text: qsTrId("settings-title")
+            text: titleId.text
             handler: searchBoxHandler
             Component.onCompleted: indexer.addIndexToHandler()
         }
         Title {
             id: titleId
-            text: indexer.text
+            //% "Settings"
+            text: getHighlitedText(qsTrId("settings-title"))
+            visible: searchBoxText != "" && foundText.indexOf(titleId) === -1 ? false : true
             // //% "Settings"
             // text: createIndexer(titleId, qsTrId("settings-title"))
         }
