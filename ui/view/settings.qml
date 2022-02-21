@@ -22,7 +22,6 @@ ColumnLayout {
     property string searchBoxText: searchBox.text
     onSearchBoxTextChanged: function() {
         foundText = searchBoxHandler.search(searchBoxText)
-        console.log("searchBoxText:", searchBoxText, "foundText:", foundText)
     }
 
     Component.onCompleted: {
@@ -43,11 +42,10 @@ ColumnLayout {
     }
 
     // function createIndexer(parentItem, fieldText) {
-    //     var newObject = Qt.createQmlObject("SearchIndexer { id: indexer, fieldId: parentItem, text: fieldText, handler: searchBoxHandler, Component.onCompleted: {indexer.addIndexToHandler()} }",
+    //     var newObject = Qt.createQmlObject("import QtQuick 2.11; import Beam.Wallet 1.0; SearchIndexer { fieldId: parentItem, text: fieldText, handler: searchBoxHandler, Component.onCompleted: addIndexToHandler() }",
     //                                parentItem,
-    //                                "dynamicObject");
+    //                                "dynamicSnippet1");
     //     newObject.destroy();
-    //     return fieldText;
     // }
 
     RowLayout {
@@ -56,20 +54,12 @@ ColumnLayout {
         Layout.minimumHeight: 40
         Layout.alignment:     Qt.AlignTop
 
-        SearchIndexer {
-            id: indexer
-            fieldId: titleId
-            text: titleId.text
-            handler: searchBoxHandler
-            Component.onCompleted: indexer.addIndexToHandler()
-        }
         Title {
             id: titleId
             //% "Settings"
-            text: getHighlitedText(qsTrId("settings-title"))
-            visible: searchBoxText != "" && foundText.indexOf(titleId) === -1 ? false : true
-            // //% "Settings"
+            text: qsTrId("settings-title")
             // text: createIndexer(titleId, qsTrId("settings-title"))
+            // Component.onCompleted: createIndexer(settingsView, getHighlitedText( qsTrId("settings-title") ))
         }
 
         SFText {
@@ -128,11 +118,24 @@ ColumnLayout {
                 SettingsTitle {
                     //% "Wallet"
                     text:  qsTrId("settings-wallet-title")
+                    visible: generalBlock.visible || notificationsBlock.visible || utilitiesBlock.visible || privacyBlock.visible || appsBlock.visible
                 }
 
                 SettingsGeneral {
                     id: generalBlock
                     viewModel: viewModel
+                    searchBoxHandler: searchBoxHandler
+                    Binding {
+                        target:   generalBlock
+                        property: "searchBoxText"
+                        value:    settingsView.searchBoxText
+                    }
+                    Binding {
+                        target:   generalBlock
+                        property: "foundText"
+                        value:    settingsView.foundText
+                    }
+                    visible: searchBoxText != "" && foundText.indexOf(generalBlock) === -1 ? false : true
                 }
 
                 SettingsNotifications {
@@ -160,6 +163,7 @@ ColumnLayout {
                     topPadding: 30
                     //% "Troubleshooting"
                     text:  qsTrId("settings-troubleshooting-title")
+                    visible: resourcesBlock.visible || reportBlock.visible
                 }
 
                 SettingsResources {

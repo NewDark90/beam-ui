@@ -13,17 +13,28 @@ SettingsFoldable {
     //% "General"
     title: qsTrId("settings-general-title")
 
+    property var    searchBoxHandler
+    property var    foundText: []
+    property string searchBoxText: ""
+
     content: ColumnLayout {
         spacing: 30
 
         RowLayout {
             Layout.preferredHeight: 16
             ColumnLayout {
+                SearchIndexer {
+                    fieldId: generalBlock
+                    text: languageLabel.text
+                    handler: searchBoxHandler
+                    Component.onCompleted: addIndexToHandler()
+                }
                 SFText {
+                    id: languageLabel
                     Layout.fillWidth: true
                     //: settings tab, general section, language label
                     //% "Language"
-                    text: qsTrId("settings-general-language")
+                    text: getHighlitedText(qsTrId("settings-general-language"))
                     color: Style.content_secondary
                     font.pixelSize: 14
                 }
@@ -50,11 +61,18 @@ SettingsFoldable {
         }
 
         RowLayout {
+            SearchIndexer {
+                fieldId: generalBlock
+                text: lockTimeoutLabel.text
+                handler: searchBoxHandler
+                Component.onCompleted: addIndexToHandler()
+            }
             SFText {
+                id: lockTimeoutLabel
                 Layout.fillWidth: true
                 //: settings tab, general section, lock screen label
                 //% "Lock screen"
-                text: qsTrId("settings-general-lock-screen")
+                text: getHighlitedText(qsTrId("settings-general-lock-screen"))
                 color: Style.content_secondary
                 font.pixelSize: 14
             }
@@ -85,11 +103,18 @@ SettingsFoldable {
         }
 
         RowLayout {
+            SearchIndexer {
+                fieldId: generalBlock
+                text: minConfirmationsLabel.text
+                handler: searchBoxHandler
+                Component.onCompleted: addIndexToHandler()
+            }
             SFText {
+                id: minConfirmationsLabel
                 Layout.fillWidth: true
                 //: settings tab, general section, minimum confirmations
                 //% "Minimum confirmations"
-                text: qsTrId("settings-general-confirmations")
+                text: getHighlitedText(qsTrId("settings-general-confirmations"))
                 color: Style.content_secondary
                 font.pixelSize: 14
             }
@@ -107,11 +132,18 @@ SettingsFoldable {
         }
 
         RowLayout {
+            SearchIndexer {
+                fieldId: generalBlock
+                text: secondCurrencyLabel.text
+                handler: searchBoxHandler
+                Component.onCompleted: addIndexToHandler()
+            }
             SFText {
+                id: secondCurrencyLabel
                 Layout.fillWidth: true
                 //: settings tab, general section, amounts unit label
                 //% "Show amounts in"
-                text: qsTrId("settings-general-amounts-unit")
+                text: getHighlitedText(qsTrId("settings-general-amounts-unit"))
                 color: Style.content_secondary
                 font.pixelSize: 14
             }

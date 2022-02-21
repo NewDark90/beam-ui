@@ -25,7 +25,7 @@ class SearchBoxHandler : public QObject
     Q_PROPERTY(SearchBoxHandler* handler    READ getHandler)
 
 public:
-    using Ptr = std::shared_ptr<SearchBoxHandler>;
+    // using Ptr = std::shared_ptr<SearchBoxHandler>;
 
     SearchBoxHandler() = default;
     ~SearchBoxHandler();
