@@ -41,12 +41,15 @@ ColumnLayout {
         viewId: settingsView
     }
 
-    // function createIndexer(parentItem, fieldText) {
-    //     var newObject = Qt.createQmlObject("import QtQuick 2.11; import Beam.Wallet 1.0; SearchIndexer { fieldId: parentItem, text: fieldText, handler: searchBoxHandler, Component.onCompleted: addIndexToHandler() }",
-    //                                parentItem,
-    //                                "dynamicSnippet1");
-    //     newObject.destroy();
-    // }
+    function createIndexer(parentItem, handler, fieldText) {
+        var indexer = Qt.createQmlObject("import QtQuick 2.11; import Beam.Wallet 1.0; SearchIndexer {}",
+                                   parentItem,
+                                   "dynamicSnippet1");
+        indexer.fieldId = parentItem;
+        indexer.text = fieldText;
+        indexer.handler = handler;
+        indexer.addIndexToHandler();
+    }
 
     RowLayout {
         id: mainColumn
@@ -58,8 +61,6 @@ ColumnLayout {
             id: titleId
             //% "Settings"
             text: qsTrId("settings-title")
-            // text: createIndexer(titleId, qsTrId("settings-title"))
-            // Component.onCompleted: createIndexer(settingsView, getHighlitedText( qsTrId("settings-title") ))
         }
 
         SFText {
