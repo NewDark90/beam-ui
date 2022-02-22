@@ -33,7 +33,12 @@ ColumnLayout {
     }
 
     function getHighlitedText(text) {
-        return Utils.getHighlitedText(text, searchBoxText, Style.accent_incoming.toString());
+        if(!Array.isArray(text)) {
+            return Utils.getHighlitedText(text, searchBoxText, Style.accent_incoming.toString());
+        }
+        else {
+            return text.map( function (el) { return Utils.getHighlitedText(el, searchBoxText, Style.accent_incoming.toString()) } );
+        }
     }
 
     SearchBoxHandler {
@@ -136,7 +141,7 @@ ColumnLayout {
                         property: "foundText"
                         value:    settingsView.foundText
                     }
-                    visible: searchBoxText != "" && foundText.indexOf(generalBlock) === -1 ? false : true
+                   // visible: searchBoxText != "" && foundText.indexOf(generalBlock) === -1 ? false : true
                 }
 
                 SettingsNotifications {

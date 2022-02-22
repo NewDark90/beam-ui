@@ -34,17 +34,13 @@ SettingsFoldable {
                     Component.onCompleted: createIndexer(generalBlock, searchBoxHandler, languageLabel.text)
                 }
             }
-
-            Item {
-            }
-
+            Item {}
             ColumnLayout {
                 CustomComboBox {
                     id: language
                     Layout.preferredWidth: secondCurrencySwitch.width
                     fontPixelSize: 14
                     enableScroll: true
-
                     model: viewModel.supportedLanguages
                     currentIndex: viewModel.currentLanguageIndex
                     onActivated: {
@@ -72,7 +68,7 @@ SettingsFoldable {
                 fontPixelSize: 14
                 Layout.preferredWidth: secondCurrencySwitch.width
                 currentIndex: viewModel.lockTimeout
-                model: [
+                model: getHighlitedText([
                     //% "Never"
                     qsTrId("settings-general-lock-screen-never"),
                     //% "1 minute"
@@ -85,7 +81,7 @@ SettingsFoldable {
                     qsTrId("settings-general-lock-screen-30m"),
                     //% "1 hour"
                     qsTrId("settings-general-lock-screen-1h"),
-                ]
+                ])
                 onActivated: {
                     viewModel.lockTimeout = lockTimeoutControl.currentIndex
                 }
@@ -109,7 +105,7 @@ SettingsFoldable {
                 fontPixelSize: 14
                 Layout.preferredWidth: secondCurrencySwitch.width
                 currentIndex: viewModel.minConfirmations
-                model: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                model: getHighlitedText(["0","1","2","3","4","5","6","7","8","9","10"])
                 onActivated: {
                     viewModel.minConfirmations = minConfirmationsControl.currentIndex
                 }
@@ -133,7 +129,7 @@ SettingsFoldable {
                 width: 210
                 height: 20
                 choices: ["usd", "btc", "eth"]
-                labels:  ["USD", "BTC", "ETH"]
+                labels:  getHighlitedText(["USD", "BTC", "ETH"])
                 state: viewModel.secondCurrency
                 Binding {
                     target: viewModel
