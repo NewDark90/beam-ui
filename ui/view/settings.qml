@@ -18,11 +18,7 @@ ColumnLayout {
 
     property bool settingsPrivacyFolded: true
 
-    property var    foundText: []
     property string searchBoxText: searchBox.text
-    onSearchBoxTextChanged: function() {
-        foundText = searchBoxHandler.search(searchBoxText)
-    }
 
     Component.onCompleted: {
         settingsView.creating = false
@@ -39,21 +35,6 @@ ColumnLayout {
         else {
             return text.map( function (el) { return Utils.getHighlitedText(el, searchBoxText, Style.accent_incoming.toString()) } );
         }
-    }
-
-    SearchBoxHandler {
-        id: searchBoxHandler
-        viewId: settingsView
-    }
-
-    function createIndexer(parentItem, handler, fieldText) {
-        var indexer = Qt.createQmlObject("import QtQuick 2.11; import Beam.Wallet 1.0; SearchIndexer {}",
-                                   parentItem,
-                                   "dynamicSnippet1");
-        indexer.fieldId = parentItem;
-        indexer.text = fieldText;
-        indexer.handler = handler;
-        indexer.addIndexToHandler();
     }
 
     RowLayout {
@@ -124,22 +105,16 @@ ColumnLayout {
                 SettingsTitle {
                     //% "Wallet"
                     text:  qsTrId("settings-wallet-title")
-                    visible: generalBlock.visible || notificationsBlock.visible || utilitiesBlock.visible || privacyBlock.visible || appsBlock.visible
+                //    visible: generalBlock.visible || notificationsBlock.visible || utilitiesBlock.visible || privacyBlock.visible || appsBlock.visible
                 }
 
                 SettingsGeneral {
                     id: generalBlock
                     viewModel: viewModel
-                    searchBoxHandler: searchBoxHandler
                     Binding {
                         target:   generalBlock
                         property: "searchBoxText"
                         value:    settingsView.searchBoxText
-                    }
-                    Binding {
-                        target:   generalBlock
-                        property: "foundText"
-                        value:    settingsView.foundText
                     }
                    // visible: searchBoxText != "" && foundText.indexOf(generalBlock) === -1 ? false : true
                 }
@@ -169,7 +144,7 @@ ColumnLayout {
                     topPadding: 30
                     //% "Troubleshooting"
                     text:  qsTrId("settings-troubleshooting-title")
-                    visible: resourcesBlock.visible || reportBlock.visible
+                //    visible: resourcesBlock.visible || reportBlock.visible
                 }
 
                 SettingsResources {

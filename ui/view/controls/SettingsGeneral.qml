@@ -13,8 +13,6 @@ SettingsFoldable {
     //% "General"
     title: qsTrId("settings-general-title")
 
-    property var    searchBoxHandler
-    property var    foundText: []
     property string searchBoxText: ""
 
     content: ColumnLayout {
@@ -24,14 +22,12 @@ SettingsFoldable {
             Layout.preferredHeight: 16
             ColumnLayout {
                 SFText {
-                    id: languageLabel
                     Layout.fillWidth: true
                     //: settings tab, general section, language label
                     //% "Language"
                     text: getHighlitedText(qsTrId("settings-general-language"))
                     color: Style.content_secondary
                     font.pixelSize: 14
-                    Component.onCompleted: createIndexer(generalBlock, searchBoxHandler, languageLabel.text)
                 }
             }
             Item {}
@@ -53,14 +49,12 @@ SettingsFoldable {
 
         RowLayout {
             SFText {
-                id: lockTimeoutLabel
                 Layout.fillWidth: true
                 //: settings tab, general section, lock screen label
                 //% "Lock screen"
                 text: getHighlitedText(qsTrId("settings-general-lock-screen"))
                 color: Style.content_secondary
                 font.pixelSize: 14
-                Component.onCompleted: createIndexer(generalBlock, searchBoxHandler, lockTimeoutLabel.text)
             }
             Item {}
             CustomComboBox {
@@ -90,14 +84,12 @@ SettingsFoldable {
 
         RowLayout {
             SFText {
-                id: minConfirmationsLabel
                 Layout.fillWidth: true
                 //: settings tab, general section, minimum confirmations
                 //% "Minimum confirmations"
                 text: getHighlitedText(qsTrId("settings-general-confirmations"))
                 color: Style.content_secondary
                 font.pixelSize: 14
-                Component.onCompleted: createIndexer(generalBlock, searchBoxHandler, minConfirmationsLabel.text)
             }
             Item {}
             CustomComboBox {
@@ -114,14 +106,12 @@ SettingsFoldable {
 
         RowLayout {
             SFText {
-                id: secondCurrencyLabel
                 Layout.fillWidth: true
                 //: settings tab, general section, amounts unit label
                 //% "Show amounts in"
                 text: getHighlitedText(qsTrId("settings-general-amounts-unit"))
                 color: Style.content_secondary
                 font.pixelSize: 14
-                Component.onCompleted: createIndexer(generalBlock, searchBoxHandler, secondCurrencyLabel.text)
             }
             Item {}
             TristateSwitch {
