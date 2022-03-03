@@ -35,8 +35,15 @@ SettingsFoldableSearchable {
                     Layout.preferredWidth: secondCurrencySwitch.width
                     fontPixelSize: 14
                     enableScroll: true
-                    model: viewModel.supportedLanguages
                     currentIndex: viewModel.currentLanguageIndex
+
+                    property int lastIndex: -1
+                    model:  { lastIndex = currentIndex; return getHighlitedText(Array.from(viewModel.supportedLanguages), currentIndex) }
+                    onModelChanged:
+                    {
+                        currentIndex = lastIndex
+                    }
+
                     onActivated: {
                         viewModel.currentLanguage = currentText;
                     }
