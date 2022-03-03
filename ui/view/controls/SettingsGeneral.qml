@@ -60,20 +60,30 @@ SettingsFoldableSearchable {
                 fontPixelSize: 14
                 Layout.preferredWidth: secondCurrencySwitch.width
                 currentIndex: viewModel.lockTimeout
-                model: getHighlitedText([
-                    //% "Never"
-                    qsTrId("settings-general-lock-screen-never"),
-                    //% "1 minute"
-                    qsTrId("settings-general-lock-screen-1m"),
-                    //% "5 minutes"
-                    qsTrId("settings-general-lock-screen-5m"),
-                    //% "15 minutes"
-                    qsTrId("settings-general-lock-screen-15m"),
-                    //% "30 minutes"
-                    qsTrId("settings-general-lock-screen-30m"),
-                    //% "1 hour"
-                    qsTrId("settings-general-lock-screen-1h"),
-                ])
+                onCurrentValueChanged: console.log(currentValue)
+                
+                property int lastIndex: -1
+                model: { lastIndex = currentIndex; 
+                    return getHighlitedText([
+                        //% "Never"
+                        qsTrId("settings-general-lock-screen-never"),
+                        //% "1 minute"
+                        qsTrId("settings-general-lock-screen-1m"),
+                        //% "5 minutes"
+                        qsTrId("settings-general-lock-screen-5m"),
+                        //% "15 minutes"
+                        qsTrId("settings-general-lock-screen-15m"),
+                        //% "30 minutes"
+                        qsTrId("settings-general-lock-screen-30m"),
+                        //% "1 hour"
+                        qsTrId("settings-general-lock-screen-1h"),
+                    ], currentIndex) 
+                }
+                onModelChanged:
+                {
+                    currentIndex = lastIndex
+                }
+
                 onActivated: {
                     viewModel.lockTimeout = lockTimeoutControl.currentIndex
                 }
@@ -95,7 +105,14 @@ SettingsFoldableSearchable {
                 fontPixelSize: 14
                 Layout.preferredWidth: secondCurrencySwitch.width
                 currentIndex: viewModel.minConfirmations
-                model: getHighlitedText(["0","1","2","3","4","5","6","7","8","9","10"])
+
+                property int lastIndex: -1
+                model: { lastIndex = currentIndex; return getHighlitedText(["0","1","2","3","4","5","6","7","8","9","10"], currentIndex) }
+                onModelChanged:
+                {
+                    currentIndex = lastIndex
+                }
+                
                 onActivated: {
                     viewModel.minConfirmations = minConfirmationsControl.currentIndex
                 }

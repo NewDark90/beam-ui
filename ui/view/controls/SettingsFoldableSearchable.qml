@@ -21,13 +21,12 @@ SettingsFoldable {
 
     function search(str) {
         if (str.search(new RegExp("(" + control.searchFilter + ")", "i")) !== -1) {
-        console.log(folded)
             found = true;
             folded = false;
         }
     }
 
-    function getHighlitedText(text) {
+    function getHighlitedText(text, currentIndex = -1) {
         if(control.searchFilter == "")
             return text;
             
@@ -36,12 +35,16 @@ SettingsFoldable {
             return Utils.getHighlitedText(text, control.searchFilter, Style.accent_incoming.toString());
         }
         else {
-            return text.map( function (el) {    
-                search(el);
-                return Utils.getHighlitedText(el, control.searchFilter, Style.accent_incoming.toString()) 
-                } 
+            return text.map( function (el, index) {  
+                    if (currentIndex !== index && currentIndex !== -1) {
+                        return el;
+                    }
+                    else {
+                        search(el);
+                        return Utils.getHighlitedText(el, control.searchFilter, Style.accent_incoming.toString());
+                    }
+                }
             );
         }
     }
-
 }
