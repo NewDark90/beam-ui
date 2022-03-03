@@ -18,23 +18,12 @@ ColumnLayout {
 
     property bool settingsPrivacyFolded: true
 
-    property string searchBoxText: searchBox.text
-
     Component.onCompleted: {
         settingsView.creating = false
     }
 
     SettingsViewModel {
         id: viewModel
-    }
-
-    function getHighlitedText(text) {
-        if(!Array.isArray(text)) {
-            return Utils.getHighlitedText(text, searchBoxText, Style.accent_incoming.toString());
-        }
-        else {
-            return text.map( function (el) { return Utils.getHighlitedText(el, searchBoxText, Style.accent_incoming.toString()) } );
-        }
     }
 
     RowLayout {
@@ -105,7 +94,7 @@ ColumnLayout {
                 SettingsTitle {
                     //% "Wallet"
                     text:  qsTrId("settings-wallet-title")
-                //    visible: generalBlock.visible || notificationsBlock.visible || utilitiesBlock.visible || privacyBlock.visible || appsBlock.visible
+                    visible: generalBlock.visible || notificationsBlock.visible || utilitiesBlock.visible || privacyBlock.visible || appsBlock.visible
                 }
 
                 SettingsGeneral {
@@ -113,10 +102,9 @@ ColumnLayout {
                     viewModel: viewModel
                     Binding {
                         target:   generalBlock
-                        property: "searchBoxText"
-                        value:    settingsView.searchBoxText
+                        property: "searchFilter"
+                        value:    searchBox.text
                     }
-                   // visible: searchBoxText != "" && foundText.indexOf(generalBlock) === -1 ? false : true
                 }
 
                 SettingsNotifications {

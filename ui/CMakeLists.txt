@@ -206,7 +206,6 @@ set(UI_SRC
     viewmodel/dex/dex_view.cpp
     viewmodel/dex/dex_order_object.cpp
     viewmodel/dex/dex_orders_list.cpp
-
     model/wallet_model.h
     model/wallet_model.cpp
     model/app_model.h

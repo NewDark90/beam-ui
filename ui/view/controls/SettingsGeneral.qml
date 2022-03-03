@@ -6,14 +6,12 @@ import QtQuick.Layouts 1.12
 import Beam.Wallet 1.0
 import "."
 
-SettingsFoldable {
+SettingsFoldableSearchable {
     id: generalBlock
     property var viewModel
     //: settings tab, general section, title
     //% "General"
-    title: qsTrId("settings-general-title")
-
-    property string searchBoxText: ""
+    title: getHighlitedText(qsTrId("settings-general-title"))
 
     content: ColumnLayout {
         spacing: 30
